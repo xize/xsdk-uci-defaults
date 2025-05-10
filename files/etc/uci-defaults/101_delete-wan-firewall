@@ -4,8 +4,13 @@ if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 	if [ "$(uci -q get firewall.@zone[1].name)" = "wan" ]
 	then
-		uci del firewall.@zone[1]
-		uci commit firewall
+		uci set firewall.@defaults[0].input='ACCEPT'
+		uci set firewall.@defaults[0].output='ACCEPT'
+		uci set firewall.@defaults[0].forward='ACCEPT'
+		uci set firewall.@zone[1].input='ACCEPT'
+                uci set firewall.@zone[1].output='ACCEPT'
+                uci set firewall.@zone[1].forward='ACCEPT'
+                uci commit firewall
 	fi
 fi
 
