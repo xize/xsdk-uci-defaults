@@ -14,36 +14,43 @@ set network.ayaneo='interface'
 set network.ayaneo.proto='dhcp'
 set network.ayaneo.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.90" || echo "eth0.90")
 set network.ayaneo.classlessroute='1'
+set network.ayaneo.defaultroute='0'
 
 set network.iot='interface'
 set network.iot.proto='dhcp'
 set network.iot.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.52" || echo "eth0.52")
 set network.iot.classlessroute='1'
+set network.iot.defaultroute='0'
 
 set network.aqara='interface'
 set network.aqara.proto='dhcp'
 set network.aqara.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.178" || echo "eth0.178")
 set network.aqara.classlessroute='1'
+set network.aqara.defaultroute='0'
 
 set network.hwnet='interface'
 set network.hwnet.proto='dhcp'
 set network.hwnet.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.179" || echo "eth0.179")
 set network.hwnet.classlessroute='1'
+set network.hwnet.defaultroute='0'
 
 set network.wlan0='interface'
 set network.wlan0.proto='dhcp'
 set network.wlan0.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.50" || echo "eth0.50")
 set network.wlan0.classlessroute='1'
+set network.wlan0.defaultroute='0'
 
 set network.wlan1='interface'
 set network.wlan1.proto='dhcp'
 set network.wlan1.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.51" || echo "eth0.51")
 set network.wlan1.classlessroute='1'
+set network.wlan1.defaultroute='0'
 
 set network.betatest='interface'
 set network.betatest.proto='dhcp'
 set network.betatest.device=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1.62" || echo "eth0.62")
 set network.betatest.classlessroute='1'
+set network.betatest.defaultroute='0'
 
 EOI
 
