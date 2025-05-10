@@ -11,33 +11,33 @@ then
     uci set wireless.radio1.hostapd_options='ssid_protection=1'
 
     uci set wireless.default_radio1.network='wlan0'
-	if [ "$router_model" = "glinet,gl-mt6000" ]
-	then
-	    uci set wireless.default_radio1.ssid='GL-MT6000-7fa-5G'	
-	else
-		uci set wireless.default_radio1.ssid='GL-MT6000-7fa-5G-backup'	
-	fi
+    uci set wireless.default_radio1.ssid='GL-MT6000-7fa-5G'	
     uci set wireless.default_radio1.encryption='psk2+ccmp'
     uci set wireless.default_radio1.key="$(genpasswd 16)"
     uci set wireless.default_radio1.ieee80211w='2'
     uci set wireless.default_radio1.ocv='1'
     uci set wireless.default_radio1.macaddr='random'
+    uci set wireless.default_radio1.ieee80211r='1'
+    uci set wireless.default_radio1.mobility_domain='F8DC'
+    uci set wireless.default_radio1.ft_over_ds='0'
+    uci set wireless.default_radio1.disabled='1'
+    # todo: observe if psk_generate_local is needed to be turned off.
 
     uci set wireless.radio0.country='NL'
     uci set wireless.radio0.hostapd_options='ssid_protection=1'
 
     uci set wireless.default_radio0.network='wlan1'
-	if [ "$router_model" = "glinet,gl-mt6000" ]
-	then
-	    uci set wireless.default_radio0.ssid='GL-MT6000-7fa'	
-	else
-		uci set wireless.default_radio0.ssid='GL-MT6000-7fa-backup'	
-	fi
+    uci set wireless.default_radio0.ssid='GL-MT6000-7fa'	
     uci set wireless.default_radio0.encryption='psk2+ccmp'
     uci set wireless.default_radio0.key="$(genpasswd 16)"
     uci set wireless.default_radio0.ieee80211w='1'
     uci set wireless.default_radio0.ocv='1'
     uci set wireless.default_radio0.macaddr='random'
+    uci set wireless.default_radio0.ieee80211r='1'
+    uci set wireless.default_radio0.mobility_domain='F8DC'
+    uci set wireless.default_radio0.ft_over_ds='0'
+    uci set wireless.default_radio0.disabled='1'
+    # todo: observe if psk_generate_local is needed to be turned off.
 
 # generating multi psk :)
 uci batch << EOI
@@ -45,7 +45,7 @@ add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].iface='default_radio0'
 set wireless.@wifi-vlan[-1].vid='178'
 set wireless.@wifi-vlan[-1].name='aqnet'
-set wireless.@wifi-vlan[-1].network='aqaranet'
+set wireless.@wifi-vlan[-1].network='aqara'
 
 add wireless wifi-station
 set wireless.@wifi-station[-1].iface='default_radio0'
