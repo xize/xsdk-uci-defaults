@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$(uci -q get network.lan.device)" != "br-lan.169" -a "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+    # set wan dhcp.
+    uci set network.wan.proto='dhcp'
+    uci commit network
+fi
+
+exit 0
