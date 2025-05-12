@@ -131,6 +131,7 @@ set network.wan.device='br-wifi.1'
 EOI
 
 uci commit network
+uci commit dhcp
 
 fi
 
