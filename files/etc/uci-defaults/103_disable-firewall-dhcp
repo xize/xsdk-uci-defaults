@@ -1,0 +1,14 @@
+#!/bin/sh
+cd /etc/rc.d
+if [ -e S19dnsmasq ]; then
+  logread -t "[X-SDK]" "detected dnsmasq service, disabling."
+  /etc/init.d/dnsmasq stop
+  rm S19dnsmasq
+fi
+if [ -e S19firewall ]; then
+   logread -t "[X-SDK]" "detected firewall service, disabling."
+  /etc/init.d/firewall stop
+  rm S19firewall
+fi
+
+exit 0
