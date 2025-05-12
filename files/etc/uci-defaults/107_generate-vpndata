@@ -62,6 +62,8 @@ then
     uci set network.@wireguard_wifivpn[-1].endpoint_port='51820'
     uci set network.@wireguard_wifivpn[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='10.39.95.2/32'
+    # the wireguard server needs to be aware of 224.0.0.0/8 aswell, now on the client config also this needs to be placed, 0.0.0.0/0 might not be valid for L2 we have to explicity tell wireguard.
+    uci add_list network.@wireguard_wifivpn[-1].allowed_ips='224.0.0.0/8'
 
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
     uci add network wireguard_wifivpn
@@ -72,6 +74,8 @@ then
     uci set network.@wireguard_wifivpn[-1].endpoint_port='51820'
     uci set network.@wireguard_wifivpn[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='10.39.95.3/32'
+    # the wireguard server needs to be aware of 224.0.0.0/8 aswell, now on the client config also this needs to be placed, 0.0.0.0/0 might not be valid for L2 we have to explicity tell wireguard.
+    uci add_list network.@wireguard_wifivpn[-1].allowed_ips='224.0.0.0/8'
 
     uci add network route
     uci set network.@route[-1].interface='wifivpn'
