@@ -9,6 +9,9 @@ then
 
 uci batch << EOI
 
+# remove wan interface.
+uci del network.wan
+
 add_list network.@device[0].ports=$([[ "$router_model" = "glinet,gl-mt6000" ]] && echo "eth1" || echo "eth0")
 set network.@device[0].bridge_empty='1'
 

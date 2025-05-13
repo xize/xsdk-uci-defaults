@@ -7,9 +7,13 @@ then
 		uci set firewall.@defaults[0].input='ACCEPT'
 		uci set firewall.@defaults[0].output='ACCEPT'
 		uci set firewall.@defaults[0].forward='ACCEPT'
-		uci set firewall.@zone[1].input='ACCEPT'
-                uci set firewall.@zone[1].output='ACCEPT'
-                uci set firewall.@zone[1].forward='ACCEPT'
+		
+		# deleting wan zone.
+		del firewall.@zone[1]
+		# make lan the new masquarading wan.
+		set firewall.@zone[0].masq='1'
+		set firewall.@zone[0].mtu_fix='1'
+		set firewall.@zone[0].forward='ACCEPT'
                 uci commit firewall
 	fi
 fi
