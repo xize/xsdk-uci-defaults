@@ -69,7 +69,7 @@ add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].iface='default_radio0'
 set wireless.@wifi-vlan[-1].vid='178'
 set wireless.@wifi-vlan[-1].name='aqnet'
-set wireless.@wifi-vlan[-1].network='aqaranet'
+set wireless.@wifi-vlan[-1].network='aqara'
 
 add wireless wifi-station
 set wireless.@wifi-station[-1].iface='default_radio0'
