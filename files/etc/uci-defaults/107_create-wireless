@@ -5,7 +5,7 @@
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 
-uci batch <<EOT
+uci batch << EOI
 set wireless.radio0=wifi-device
 set wireless.radio0.type='mac80211'
 set wireless.radio0.path='platform/soc/18000000.wifi'
@@ -65,59 +65,59 @@ set wireless.default_radio1.ft_over_ds='0'
 set wireless.default_radio1.ft_psk_generate_local='1'
 set wireless.default_radio1.disabled='1'
 
-set wireless.@wifi-vlan[0]=wifi-vlan
-set wireless.@wifi-vlan[0].iface='default_radio0'
-set wireless.@wifi-vlan[0].vid='178'
-set wireless.@wifi-vlan[0].name='aqnet'
-set wireless.@wifi-vlan[0].network='aqaranet'
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio0'
+set wireless.@wifi-vlan[-1].vid='178'
+set wireless.@wifi-vlan[-1].name='aqnet'
+set wireless.@wifi-vlan[-1].network='aqaranet'
 
-set wireless.@wifi-station[0]=wifi-station
-set wireless.@wifi-station[0].iface='default_radio0'
-set wireless.@wifi-station[0].vid='178'
-set wireless.@wifi-station[0].key="$(genpasswd 16)"
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio0'
+set wireless.@wifi-station[-1].vid='178'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
-set wireless.@wifi-vlan[1]=wifi-vlan
-set wireless.@wifi-vlan[1].iface='default_radio0'
-set wireless.@wifi-vlan[1].vid='179'
-set wireless.@wifi-vlan[1].name='hwnet'
-set wireless.@wifi-vlan[1].network='hwnet'
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio0'
+set wireless.@wifi-vlan[-1].vid='179'
+set wireless.@wifi-vlan[-1].name='hwnet'
+set wireless.@wifi-vlan[-1].network='hwnet'
 
-set wireless.@wifi-station[1]=wifi-station
-set wireless.@wifi-station[1].iface='default_radio0'
-set wireless.@wifi-station[1].vid='179'
-set wireless.@wifi-station[1].key="$(genpasswd 16)"
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio0'
+set wireless.@wifi-station[-1].vid='179'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
-set wireless.@wifi-vlan[2]=wifi-vlan
-set wireless.@wifi-vlan[2].iface='default_radio1'
-set wireless.@wifi-vlan[2].vid='90'
-set wireless.@wifi-vlan[2].name='aya'
-set wireless.@wifi-vlan[2].network='ayaneo'
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio1'
+set wireless.@wifi-vlan[-1].vid='90'
+set wireless.@wifi-vlan[-1].name='aya'
+set wireless.@wifi-vlan[-1].network='ayaneo'
 
-set wireless.@wifi-station[2]=wifi-station
-set wireless.@wifi-station[2].iface='default_radio1'
-set wireless.@wifi-station[2].vid='90'
-set wireless.@wifi-station[2].key="$(genpasswd 16)"
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio1'
+set wireless.@wifi-station[-1].vid='90'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
-set wireless.@wifi-station[3]=wifi-station
-set wireless.@wifi-station[3].vid='52'
-set wireless.@wifi-station[3].iface='default_radio0'
-set wireless.@wifi-station[3].key="$(genpasswd 16)"
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio0'
+set wireless.@wifi-vlan[-1].vid='52'
+set wireless.@wifi-vlan[-1].name='iot'
+set wireless.@wifi-vlan[-1].network='iot'
 
-set wireless.@wifi-vlan[3]=wifi-vlan
-set wireless.@wifi-vlan[3].vid='52'
-set wireless.@wifi-vlan[3].name='iot'
-set wireless.@wifi-vlan[3].network='iot'
-set wireless.@wifi-vlan[3].iface='default_radio0'
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio0'
+set wireless.@wifi-station[-1].vid='52'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
-set wireless.@wifi-station[4]=wifi-station
-set wireless.@wifi-station[4].vid='62'
-set wireless.@wifi-station[4].key="$(genpasswd 16)"
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='62'
+set wireless.@wifi-vlan[-1].name='beta'
+set wireless.@wifi-vlan[-1].network='betatest'
 
-set wireless.@wifi-vlan[4]=wifi-vlan
-set wireless.@wifi-vlan[4].vid='62'
-set wireless.@wifi-vlan[4].name='beta'
-set wireless.@wifi-vlan[4].network='betatest'
-EOT
+add wireless wifi-station
+set wireless.@wifi-station[-1].vid='62'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+EOI
 
 uci commit wireless
 
