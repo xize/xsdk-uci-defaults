@@ -1,0 +1,19 @@
+#!/bin/sh
+router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
+
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+
+    # first remove the last lan port for maintenance.
+    if [ "$router_model" = "glinet,gl-mt6000" ]
+    then
+        uci del_list network.@device[0].ports="lan5"
+    elif  [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
+    then
+        uci del_list network.@device[0].ports="lan4"
+    fi
+
+    uci commit network
+fi
+
+exit 0

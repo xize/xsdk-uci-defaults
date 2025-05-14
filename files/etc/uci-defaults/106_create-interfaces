@@ -1,0 +1,42 @@
+#!/bin/sh
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+	uci set network.wlan0=interface
+	uci set network.wlan0.proto='dhcp'
+	uci set network.wlan0.device='br-lan.50'
+	uci set network.wlan0.defaultroute='0'
+
+	uci set network.wlan1=interface
+	uci set network.wlan1.proto='dhcp'
+	uci set network.wlan1.device='br-lan.51'
+	uci set network.wlan1.defaultroute='0'
+	
+	uci set network.iot=interface
+	uci set network.iot.proto='dhcp'
+	uci set network.iot.device='br-lan.52'
+	uci set network.iot.defaultroute='0'
+
+	uci set network.betatest=interface
+	uci set network.betatest.proto='dhcp'
+	uci set network.betatest.device='br-lan.62'
+	uci set network.betatest.defaultroute='0'
+
+	uci set network.ayaneo=interface
+	uci set network.ayaneo.proto='dhcp'
+	uci set network.ayaneo.device='br-lan.90'
+	uci set network.ayaneo.defaultroute='0'
+
+	uci set network.aqara=interface
+	uci set network.aqara.proto='dhcp'
+	uci set network.aqara.device='br-lan.178'
+	uci set network.aqara.defaultroute='0'
+
+	uci set network.hwnet=interface
+	uci set network.hwnet.proto='dhcp'
+	uci set network.hwnet.device='br-lan.179'
+	uci set network.hwnet.defaultroute='0'
+
+	uci commit network
+fi
+
+exit 0
