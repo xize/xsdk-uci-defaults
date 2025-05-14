@@ -1,0 +1,126 @@
+#!/bin/sh
+
+. /lib/functions/passwordhelper.sh
+
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+
+uci batch <<EOT
+set wireless.radio0=wifi-device
+set wireless.radio0.type='mac80211'
+set wireless.radio0.path='platform/soc/18000000.wifi'
+set wireless.radio0.channel='12'
+set wireless.radio0.band='2g'
+set wireless.radio0.htmode='HE20'
+set wireless.radio0.cell_density='0'
+set wireless.radio0.txpower='20'
+set wireless.radio0.country='NL'
+add_list wireless.radio0.hostapd_options='ssid_protection=1'
+set wireless.radio0.vendor_vht='1'
+set wireless.radio0.itxbfen='1'
+
+set wireless.default_radio0=wifi-iface
+set wireless.default_radio0.device='radio0'
+set wireless.default_radio0.network='wlan1'
+set wireless.default_radio0.mode='ap'
+set wireless.default_radio0.ssid='GL-MT6000-7fa'
+set wireless.default_radio0.encryption='psk2+ccmp'
+set wireless.default_radio0.key="$(genpasswd 16)"
+set wireless.default_radio0.wpa_disable_eapol_key_retries='1'
+set wireless.default_radio0.ieee80211w='1'
+set wireless.default_radio0.ocv='1'
+set wireless.default_radio0.macaddr='random'
+set wireless.default_radio0.ieee80211r='1'
+set wireless.default_radio0.mobility_domain='F8DC'
+set wireless.default_radio0.ft_over_ds='0'
+set wireless.default_radio0.ft_psk_generate_local='1'
+set wireless.default_radio0.disabled='1'
+
+set wireless.radio1=wifi-device
+set wireless.radio1.type='mac80211'
+set wireless.radio1.path='platform/soc/18000000.wifi+1'
+set wireless.radio1.channel='36'
+set wireless.radio1.band='5g'
+set wireless.radio1.htmode='HE160'
+set wireless.radio1.cell_density='0'
+set wireless.radio1.country='NL'
+set wireless.radio1.txpower='23'
+add_list wireless.radio1.hostapd_options='ssid_protection=1'
+set wireless.radio1.itxbfen='1'
+
+set wireless.default_radio1=wifi-iface
+set wireless.default_radio1.device='radio1'
+set wireless.default_radio1.network='wlan0'
+set wireless.default_radio1.mode='ap'
+set wireless.default_radio1.ssid='GL-MT6000-7fa-5G'
+set wireless.default_radio1.encryption='psk2+ccmp'
+set wireless.default_radio1.key="$(genpasswd 16)"
+set wireless.default_radio1.ieee80211w='1'
+set wireless.default_radio1.wpa_disable_eapol_key_retries='1'
+set wireless.default_radio1.ocv='1'
+set wireless.default_radio1.macaddr='random'
+set wireless.default_radio1.ieee80211r='1'
+set wireless.default_radio1.mobility_domain='F8DC'
+set wireless.default_radio1.ft_over_ds='0'
+set wireless.default_radio1.ft_psk_generate_local='1'
+set wireless.default_radio1.disabled='1'
+
+set wireless.@wifi-vlan[0]=wifi-vlan
+set wireless.@wifi-vlan[0].iface='default_radio0'
+set wireless.@wifi-vlan[0].vid='178'
+set wireless.@wifi-vlan[0].name='aqnet'
+set wireless.@wifi-vlan[0].network='aqaranet'
+
+set wireless.@wifi-station[0]=wifi-station
+set wireless.@wifi-station[0].iface='default_radio0'
+set wireless.@wifi-station[0].vid='178'
+set wireless.@wifi-station[0].key="$(genpasswd 16)"
+
+set wireless.@wifi-vlan[1]=wifi-vlan
+set wireless.@wifi-vlan[1].iface='default_radio0'
+set wireless.@wifi-vlan[1].vid='179'
+set wireless.@wifi-vlan[1].name='hwnet'
+set wireless.@wifi-vlan[1].network='hwnet'
+
+set wireless.@wifi-station[1]=wifi-station
+set wireless.@wifi-station[1].iface='default_radio0'
+set wireless.@wifi-station[1].vid='179'
+set wireless.@wifi-station[1].key="$(genpasswd 16)"
+
+set wireless.@wifi-vlan[2]=wifi-vlan
+set wireless.@wifi-vlan[2].iface='default_radio1'
+set wireless.@wifi-vlan[2].vid='90'
+set wireless.@wifi-vlan[2].name='aya'
+set wireless.@wifi-vlan[2].network='ayaneo'
+
+set wireless.@wifi-station[2]=wifi-station
+set wireless.@wifi-station[2].iface='default_radio1'
+set wireless.@wifi-station[2].vid='90'
+set wireless.@wifi-station[2].key="$(genpasswd 16)"
+
+set wireless.@wifi-station[3]=wifi-station
+set wireless.@wifi-station[3].vid='52'
+set wireless.@wifi-station[3].iface='default_radio0'
+set wireless.@wifi-station[3].key="$(genpasswd 16)"
+
+set wireless.@wifi-vlan[3]=wifi-vlan
+set wireless.@wifi-vlan[3].vid='52'
+set wireless.@wifi-vlan[3].name='iot'
+set wireless.@wifi-vlan[3].network='iot'
+set wireless.@wifi-vlan[3].iface='default_radio0'
+
+set wireless.@wifi-station[4]=wifi-station
+set wireless.@wifi-station[4].vid='62'
+set wireless.@wifi-station[4].key="$(genpasswd 16)"
+
+set wireless.@wifi-vlan[4]=wifi-vlan
+set wireless.@wifi-vlan[4].vid='62'
+set wireless.@wifi-vlan[4].name='beta'
+set wireless.@wifi-vlan[4].network='betatest'
+EOT
+
+uci commit wireless
+
+fi
+
+exit 0
