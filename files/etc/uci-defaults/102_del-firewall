@@ -9,6 +9,7 @@ then
     uci set firewall.@defaults[0].forward='ACCEPT'
 
     uci del network.wan
+	uci del network.wan6
 
     uci commit network
     uci commit firewall
