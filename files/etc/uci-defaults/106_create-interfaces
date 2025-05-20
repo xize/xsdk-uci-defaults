@@ -5,6 +5,8 @@ then
 	uci set network.wlan0.proto='dhcp'
 	uci set network.wlan0.device='br-lan.50'
 	uci set network.wlan0.defaultroute='0'
+	uci set network.wlan0.peerdns='0'
+	uci set network.wlan0.delegate='0'
 
 	uci add_list firewall.@zone[0].network='wlan0'
 
@@ -12,13 +14,17 @@ then
 	uci set network.wlan1.proto='dhcp'
 	uci set network.wlan1.device='br-lan.51'
 	uci set network.wlan1.defaultroute='0'
-	
+	uci set network.wlan1.peerdns='0'
+	uci set network.wlan1.delegate='0'
+
 	uci add_list firewall.@zone[0].network='wlan1'
 
 	uci set network.iot=interface
 	uci set network.iot.proto='dhcp'
 	uci set network.iot.device='br-lan.52'
 	uci set network.iot.defaultroute='0'
+	uci set network.iot.peerdns='0'
+	uci set network.iot.delegate='0'
 
 	uci add_list firewall.@zone[0].network='iot'
 
@@ -26,6 +32,8 @@ then
 	uci set network.betatest.proto='dhcp'
 	uci set network.betatest.device='br-lan.62'
 	uci set network.betatest.defaultroute='0'
+	uci set network.betatest.peerdns='0'
+	uci set network.betatest.delegate='0'
 
 	uci add_list firewall.@zone[0].network='betatest'
 
@@ -33,6 +41,8 @@ then
 	uci set network.ayaneo.proto='dhcp'
 	uci set network.ayaneo.device='br-lan.90'
 	uci set network.ayaneo.defaultroute='0'
+	uci set network.ayaneo.peerdns='0'
+	uci set network.ayaneo.delegate='0'
 
 	uci add_list firewall.@zone[0].network='ayaneo'
 
@@ -40,6 +50,8 @@ then
 	uci set network.aqara.proto='dhcp'
 	uci set network.aqara.device='br-lan.178'
 	uci set network.aqara.defaultroute='0'
+	uci set network.aqara.peerdns='0'
+	uci set network.aqara.delegate='0'
 
 	uci add_list firewall.@zone[0].network='aqara'
 
@@ -47,6 +59,8 @@ then
 	uci set network.hwnet.proto='dhcp'
 	uci set network.hwnet.device='br-lan.179'
 	uci set network.hwnet.defaultroute='0'
+	uci set network.hwnet.peerdns='0'
+	uci set network.hwnet.delegate='0'
 
 	uci add_list firewall.@zone[0].network='hwnet'
 
