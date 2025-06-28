@@ -6,17 +6,17 @@ then
 
     if [ "$router_model" = "glinet,gl-mt6000" ]
     then
-       uci add network device
-	   uci set network.@device[-1].name='br-mgmt'
-	   uci set network.@device[-1].type='bridge'
-	   uci add_list network.@device[-1].ports='lan5'
-	   uci set network.@device[-1].multicast='1'
+	uci add network device
+	uci set network.@device[-1].name='br-mgmt'
+	uci set network.@device[-1].type='bridge'
+	uci add_list network.@device[-1].ports='lan5'
+	uci set network.@device[-1].multicast='1'
     else
-       uci add network device
-	   uci set network.@device[-1].name='br-mgmt'
-	   uci set network.@device[-1].type='bridge'
-	   uci add_list network.@device[-1].ports='lan4'
-	   uci set network.@device[-1].multicast='1'
+	uci add network device
+	uci set network.@device[-1].name='br-mgmt'
+	uci set network.@device[-1].type='bridge'
+	uci add_list network.@device[-1].ports='lan4'
+	uci set network.@device[-1].multicast='1'
     fi
 
 
@@ -27,13 +27,13 @@ then
 	uci set network.mgmt.proto='static'
 	uci set network.mgmt.device='br-mgmt'
 
-   uci set dhcp.mgmt=dhcp
-   uci set dhcp.mgmt.interface='mgmt'
-   uci set dhcp.mgmt.start='2'
-   uci set dhcp.mgmt.limit='150'
-   uci set dhcp.mgmt.leasetime='12h'
+	uci set dhcp.mgmt=dhcp
+	uci set dhcp.mgmt.interface='mgmt'
+	uci set dhcp.mgmt.start='2'
+	uci set dhcp.mgmt.limit='150'
+	uci set dhcp.mgmt.leasetime='12h'
 
-    uci commit network
+	uci commit network
 	uci commit dhcp
 fi
 

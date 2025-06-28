@@ -4,6 +4,9 @@ router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
+	
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@device[0].ports='eth1' || uci add_list network.@device[0].ports='eth0'
+	
 	uci set network.lan.proto='dhcp'
 	uci set network.lan.device='br-lan.1'
 	uci set dhcp.lan.ignore='1'
@@ -13,6 +16,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='1'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:u*' || uci add_list network.@bridge-vlan[-1].ports='eth0:u*'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
@@ -21,6 +25,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='50'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -33,6 +38,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='51'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -45,6 +51,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='52'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -57,6 +64,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='62'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -69,6 +77,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='90'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -81,6 +90,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='178'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
@@ -93,6 +103,7 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	uci set network.@bridge-vlan[-1].vlan='179'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
