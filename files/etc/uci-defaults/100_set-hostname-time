@@ -1,6 +1,6 @@
 #!/bin/sh
 
-router_title="X-SDK"
+router_title="X-SDK-Central"
 
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
