@@ -36,7 +36,7 @@ set wireless.default_radio0.wnm_sleep_mode_no_keys='1'
 set wireless.default_radio0.reassociation_deadline='20000'
 set wireless.default_radio0.ieee80211k='1'
 set wireless.default_radio0.ft_over_ds='0'
-set wireless.default_radio0.ft_psk_generate_local='0'
+set wireless.default_radio0.ft_psk_generate_local='1'
 set wireless.default_radio0.disabled='1'
 
 set wireless.radio1=wifi-device
@@ -68,7 +68,7 @@ set wireless.default_radio1.ft_over_ds='0'
 set wireless.default_radio1.reassociation_deadline='20000'
 set wireless.default_radio1.ieee80211k='1'
 set wireless.default_radio1.wnm_sleep_mode_no_keys='1'
-set wireless.default_radio1.ft_psk_generate_local='0'
+set wireless.default_radio1.ft_psk_generate_local='1'
 set wireless.default_radio1.disabled='1'
 
 add wireless wifi-vlan
