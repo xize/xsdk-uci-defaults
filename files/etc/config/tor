@@ -1,0 +1,5 @@
+
+config tor 'conf'
+	list tail_include '/etc/tor/torrc_generated'
+	list tail_include '/etc/tor/custom'
+
