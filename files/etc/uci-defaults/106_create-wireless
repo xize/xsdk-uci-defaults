@@ -102,6 +102,7 @@ set wireless.@wifi-vlan[-1].name='sma'
 set wireless.@wifi-vlan[-1].network="sma"
 
 add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio0'
 set wireless.@wifi-station[-1].vid='133'
 set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
