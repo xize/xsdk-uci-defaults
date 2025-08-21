@@ -7,6 +7,7 @@ if [ "$default_pcnet" != "interface" -a "$(uci -q get xsdk.@factory[0].init)" !=
 then
 
 uci batch << EOI
+
 add firewall zone
 set firewall.@zone[-1].name="wgclient"
 add_list firewall.@zone[-1].network='wgclient'
@@ -60,6 +61,12 @@ set firewall.@zone[-1].forward="REJECT"
 add firewall forwarding
 set firewall.@forwarding[-1].src="tvboxnet"
 set firewall.@forwarding[-1].dest="wan"
+
+set network.overview=interface
+set network.proto="none"
+set network.device="br-lan"
+set network.defaultroute="0"
+set network.delegate="0"
 
 set network.pcnet=interface
 set network.pcnet.proto="static"
