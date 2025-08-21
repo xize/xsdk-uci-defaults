@@ -57,6 +57,14 @@ then
 
 	uci add_list firewall.@zone[0].network='hwnet'
 
+        uci set network.sma=interface
+        uci set network.sma.proto='dhcp'
+        uci set network.sma.device='br-lan.133'
+        uci set network.sma.defaultroute='0'
+        uci set network.sma.delegate='0'
+
+        uci add_list firewall.@zone[0].network='sma'
+
 	uci commit firewall
 	uci commit network
 fi

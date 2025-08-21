@@ -123,6 +123,16 @@ set wireless.@wifi-vlan[-1].network='betatest'
 add wireless wifi-station
 set wireless.@wifi-station[-1].vid='62'
 set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='133'
+set wireless.@wifi-vlan[-1].name='sma'
+set wireless.@wifi-vlan[-1].network='sma'
+
+add wireless wifi-station
+set wireless.@wifi-station[-1].vid='133'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
 EOI
 
 uci commit wireless

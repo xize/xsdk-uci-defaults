@@ -113,6 +113,20 @@ then
 	uci set dhcp.hwnet.interface='hwnet'
 	uci set dhcp.hwnet.ignore='1'
 
+        uci add network bridge-vlan
+        uci set network.@bridge-vlan[-1].device='br-lan'
+        uci set network.@bridge-vlan[-1].vlan='133'
+        [[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
+        uci add_list network.@bridge-vlan[-1].ports='lan1:t'
+        uci add_list network.@bridge-vlan[-1].ports='lan2:t'
+        uci add_list network.@bridge-vlan[-1].ports='lan3:t'
+        [[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+
+        uci set dhcp.sma=dhcp
+        uci set dhcp.sma.interface='sma'
+        uci set dhcp.sma.ignore='1'
+
+
 	uci commit network
 	uci commit dhcp
 	
