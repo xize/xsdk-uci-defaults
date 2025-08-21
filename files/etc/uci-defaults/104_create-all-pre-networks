@@ -392,6 +392,50 @@ add firewall forwarding
 set firewall.@forwarding[-1].src="proxmox_vpn"
 set firewall.@forwarding[-1].dest="wgclient"
 
+# sma
+set network.sma=interface
+set network.sma.proto="static"
+set network.sma.device="br-lan.133"
+set network.sma.ipaddr="10.178.178.1"
+set network.sma.netmask="255.255.255.0"
+set network.sma.defaultroute="0"
+set network.sma.delegate="0"
+
+set dhcp.sma="dhcp"
+set dhcp.sma.interface="sma"
+set dhcp.sma.start="2"
+set dhcp.sma.limit="150"
+set dhcp.sma.leasetime="12h"
+
+add firewall zone
+set firewall.@zone[-1].name="sma"
+add_list firewall.@zone[-1].network="sma"
+set firewall.@zone[-1].input="DROP"
+set firewall.@zone[-1].output="ACCEPT"
+set firewall.@zone[-1].forward="REJECT"
+
+add firewall rule
+set firewall.@rule[-1].name='allow-sunnyboy-dhcp'
+set firewall.@rule[-1].src='sma'
+set firewall.@rule[-1].dest_port='67-68 53'
+add_list firewall.@rule[-1].src_mac='00:00:00:12:34:56'
+add_list firewall.@rule[-1].src_mac='00:00:00:65:43:21'
+set firewall.@rule[-1].target='ACCEPT'
+
+add firewall rule
+set firewall.@rule[-1].name='allow-sunnyboy-internet'
+set firewall.@rule[-1].src='sma'
+set firewall.@rule[-1].dest='wan'
+set firewall.@rule[-1].src_mac='00:00:00:12:34:56'
+set firewall.@rule[-1].dest_port='80 443 53'
+set firewall.@rule[-1].target='ACCEPT'
+
+add firewall rule
+set firewall.@rule[-1].name='deny-all-sma-unsolicitated'
+set firewall.@rule[-1].src='sma'
+set firewall.@rule[-1].dest_port='80 443 22'
+set firewall.@rule[-1].target='DROP'
+
 EOI
 	
 	uci commit network
