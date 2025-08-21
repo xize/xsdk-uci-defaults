@@ -1,6 +1,12 @@
 #!/bin/sh
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
+	uci set network.overview='interface'
+	uci set network.overview.proto='none'
+	uci set network.overview.defaultroute='0'
+	uci set network.overview.delegate='0'
+	uci set network.overview.device='br-lan'
+
 	uci set network.wlan0=interface
 	uci set network.wlan0.proto='dhcp'
 	uci set network.wlan0.device='br-lan.50'
