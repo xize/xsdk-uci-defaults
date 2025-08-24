@@ -133,6 +133,25 @@ add wireless wifi-station
 set wireless.@wifi-station[-1].vid='133'
 set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='50'
+set wireless.@wifi-vlan[-1].name='wlan0'
+set wireless.@wifi-vlan[-1].network='wlan0'
+
+add wireless wifi-station
+set wireless.@wifi-station[-1].vid='50'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='51'
+set wireless.@wifi-vlan[-1].name='wlan1'
+set wireless.@wifi-vlan[-1].network='wlan1'
+
+add wireless wifi-station
+set wireless.@wifi-station[-1].vid='51'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
+
 EOI
 
 uci commit wireless

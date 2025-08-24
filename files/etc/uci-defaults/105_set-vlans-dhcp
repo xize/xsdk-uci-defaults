@@ -6,10 +6,6 @@ if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 	
 	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@device[0].ports='eth1' || uci add_list network.@device[0].ports='eth0'
-	
-	uci set network.lan.proto='dhcp'
-	uci set network.lan.device='br-lan.1'
-	uci set dhcp.lan.ignore='1'
 
 	uci set network.device[0].bridge_empty='1'
 
