@@ -8,10 +8,11 @@ if [ "$(uci -q get wireless.default_radio1.network)" != "wlan0" -a "$(uci -q get
 then
 
     uci set wireless.radio1.country='NL'
+    uci set wireless.radio1.channel='100'
     uci set wireless.radio1.hostapd_options='ssid_protection=1'
     uci set wireless.default_radio1.network='wlan0'
     uci set wireless.default_radio1.ssid='GL-MT6000-7fa-5G'
-    uci set wireless.default_radio1.encryption='psk2+ccmp'
+    uci set wireless.default_radio1.encryption='psk2+aes'
     uci set wireless.default_radio1.key="$(genpasswd 16)"
     uci set wireless.default_radio1.ieee80211w='2'
     uci set wireless.default_radio1.ocv='1'
@@ -23,11 +24,15 @@ then
     uci set wireless.default_radio1.ieee80211k='1'
     uci set wireless.default_radio1.wnm_sleep_mode_no_keys='1'
     uci set wireless.default_radio1.ft_psk_generate_local='1'
+    uci set wireless.default_radio0.dynamic_vlan='2'
+    uci set wireless.default_radio0.log_level='3'
+
 
     uci set wireless.radio0.country='NL'
+    uci set wireless.radio0.channel='10'
     uci set wireless.radio0.hostapd_options='ssid_protection=1'
     uci set wireless.default_radio0.ssid='GL-MT6000-7fa'
-    uci set wireless.default_radio0.encryption='psk2+ccmp'
+    uci set wireless.default_radio0.encryption='psk2+aes'
     uci set wireless.default_radio0.key="$(genpasswd 16)"
     uci set wireless.default_radio0.ieee80211w='1'
     uci set wireless.default_radio0.ocv='1'
@@ -39,6 +44,8 @@ then
     uci set wireless.default_radio0.reassociation_deadline='20000'
     uci set wireless.default_radio0.ieee80211k='1'
     uci set wireless.default_radio0.wnm_sleep_mode_no_keys='1'
+    uci set wireless.default_radio0.dynamic_vlan='2'
+    uci set wireless.default_radio0.log_level='3'
 
 # generating multi psk :)
 uci batch << EOI
@@ -104,6 +111,26 @@ set wireless.@wifi-vlan[-1].network="sma"
 add wireless wifi-station
 set wireless.@wifi-station[-1].iface='default_radio0'
 set wireless.@wifi-station[-1].vid='133'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='50'
+set wireless.@wifi-vlan[-1].name='wlan0'
+set wireless.@wifi-vlan[-1].network="wlan0"
+
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio1'
+set wireless.@wifi-station[-1].vid='50'
+set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+
+add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].vid='51'
+set wireless.@wifi-vlan[-1].name='wlan1'
+set wireless.@wifi-vlan[-1].network="wlan1"
+
+add wireless wifi-station
+set wireless.@wifi-station[-1].iface='default_radio1'
+set wireless.@wifi-station[-1].vid='51'
 set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 EOI
