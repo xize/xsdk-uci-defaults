@@ -7,11 +7,11 @@ then
 	uci set network.overview.delegate='0'
 	uci set network.overview.device='br-lan'
 
-	uci set network.management='interface'
-	uci set network.management.proto='static'
-	uci set network.management.ipaddr='10.234.53.3'
-	uci set network.management.netmask='255.255.255.0'
-	uci set network.management.broadcast='10.234.53.255'
+	uci set network.lan='interface'
+	uci set network.lan.proto='static'
+	uci set network.lan.ipaddr='10.234.53.3/24'
+	uci set network.lan.netmask='255.255.255.0'
+	uci set network.lan.broadcast='10.234.53.255'
 
 	uci set network.wlan0=interface
 	uci set network.wlan0.proto='dhcp'

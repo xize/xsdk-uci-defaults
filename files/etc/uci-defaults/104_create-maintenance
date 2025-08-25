@@ -1,21 +1,38 @@
 #!/bin/sh
 router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 
-if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+if [ "$(uci -q get xsdk.@factory[0].init)" != "0" ]
 then
 
 if [ "$router_model" = "glinet,gl-mt6000" ]
 then
-    uci set network.lan.device='lan5'
+    uci del_list network.@device[0].ports='lan5'
 else
-    uci set network.lan.device='lan4'
+    uci del_list network.@device[0].ports='lan4'
 fi
 
-uci set network.lan.ipaddr='192.168.244.1'
-uci set network.lan.netmask='255.255.255.0'
-uci set network.lan.proto='static'
+uci add network device
+uci set network.@device[-1].name='br-management'
+uci set network.@device[-1].type='bridge'
+uci set network.@device[-1].bridge_empty='1'
+uci add_list network.@device[-1].ports="$([ "$router_model" = "glinet,gl-mt6000" ] && echo "lan5" || echo "lan4")"
+
+uci set network.mgmt=interface
+uci set network.mgmt.ipaddr='192.168.244.1'
+uci set network.mgmt.netmask='255.255.255.0'
+uci set network.mgmt.defaultroute='0'
+uci set network.mgmt.proto='static'
+uci set network.mgmt.device='br-management'
+
+uci set dhcp.dhcp='mgmt'
+uci set dhcp.mgmt.interface='mgmt'
+uci set dhcp.mgmt.start='2'
+uci set dhcp.mgmt.limit='150'
+uci set dhcp.mgmt.leasetime='12h'
+
 
 uci commit network
 fi
 
 exit 0
+
