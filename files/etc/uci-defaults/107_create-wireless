@@ -18,6 +18,7 @@ set wireless.radio0.country='NL'
 add_list wireless.radio0.hostapd_options='ssid_protection=1'
 set wireless.radio0.vendor_vht='1'
 set wireless.radio0.itxbfen='1'
+set wireless.radio0.log_level='3'
 
 set wireless.default_radio0=wifi-iface
 set wireless.default_radio0.device='radio0'
@@ -39,7 +40,7 @@ set wireless.default_radio0.ft_over_ds='0'
 set wireless.default_radio0.ft_psk_generate_local='1'
 set wireless.default_radio0.dynamic_vlan='2'
 set wireless.default_radio0.vlan_tagged_interface='eth1'
-set wireless.default_radio0.log_level='3'
+set wireless.default_radio0.vlan_naming='1'
 set wireless.default_radio0.disabled='1'
 
 set wireless.radio1=wifi-device
@@ -50,9 +51,10 @@ set wireless.radio1.band='5g'
 set wireless.radio1.htmode='HE160'
 set wireless.radio1.cell_density='0'
 set wireless.radio1.country='NL'
-set wireless.radio1.txpower='23'
+set wireless.radio1.txpower='17'
 add_list wireless.radio1.hostapd_options='ssid_protection=1'
 set wireless.radio1.itxbfen='1'
+set wireless.radio1.log_level='3'
 
 set wireless.default_radio1=wifi-iface
 set wireless.default_radio1.device='radio1'
@@ -74,7 +76,7 @@ set wireless.default_radio1.wnm_sleep_mode_no_keys='1'
 set wireless.default_radio1.ft_psk_generate_local='1'
 set wireless.default_radio1.dynamic_vlan='2'
 set wireless.default_radio1.vlan_tagged_interface='eth1'
-set wireless.default_radio1.log_level='3'
+set wireless.default_radio1.vlan_naming='1'
 set wireless.default_radio1.disabled='1'
 
 add wireless wifi-vlan
