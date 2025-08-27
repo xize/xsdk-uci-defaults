@@ -13,7 +13,6 @@ then
     uci set wireless.default_radio1.network='wlan0'
     uci set wireless.default_radio1.ssid='GL-MT6000-7fa-5G'
     uci set wireless.default_radio1.encryption='psk2+aes'
-    uci set wireless.default_radio1.key="$(genpasswd 16)"
     uci set wireless.default_radio1.ieee80211w='2'
     uci set wireless.default_radio1.ocv='1'
     uci set wireless.default_radio1.macaddr='random'
@@ -26,6 +25,17 @@ then
     uci set wireless.default_radio1.ft_psk_generate_local='1'
     uci set wireless.default_radio0.dynamic_vlan='2'
     uci set wireless.default_radio0.log_level='3'
+    uci set wireless.default_radio0.wpa_psk_file='/etc/hostapd/ppsk-vlans'
+    mkdir -p /etc/hostapd
+    echo "vlanid=178 00:00:00:00:00:00 $(genpasswd 16)" > /etc/hostapd/ppsk-vlans
+    echo "vlanid=179 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=90 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=52 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=62 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=133 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=50 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    echo "vlanid=51 00:00:00:00:00:00 $(genpasswd 16)" >> /etc/hostapd/ppsk-vlans
+    chmod -R 755 /etc/hostapd
 
 
     uci set wireless.radio0.country='NL'
@@ -33,7 +43,6 @@ then
     uci set wireless.radio0.hostapd_options='ssid_protection=1'
     uci set wireless.default_radio0.ssid='GL-MT6000-7fa'
     uci set wireless.default_radio0.encryption='psk2+aes'
-    uci set wireless.default_radio0.key="$(genpasswd 16)"
     uci set wireless.default_radio0.ieee80211w='1'
     uci set wireless.default_radio0.ocv='1'
     uci set wireless.default_radio0.macaddr='random'
@@ -46,6 +55,7 @@ then
     uci set wireless.default_radio0.wnm_sleep_mode_no_keys='1'
     uci set wireless.default_radio0.dynamic_vlan='2'
     uci set wireless.default_radio0.log_level='3'
+    uci set wireless.default_radio0.wpa_psk_file='/etc/hostapd/ppsk-vlans'
 
 # generating multi psk :)
 uci batch << EOI
@@ -55,10 +65,10 @@ set wireless.@wifi-vlan[-1].vid='178'
 set wireless.@wifi-vlan[-1].name='aqnet'
 set wireless.@wifi-vlan[-1].network='aqaranet'
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio0'
-set wireless.@wifi-station[-1].vid='178'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio0'
+#set wireless.@wifi-station[-1].vid='178'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].iface='default_radio0'
@@ -66,10 +76,10 @@ set wireless.@wifi-vlan[-1].vid='179'
 set wireless.@wifi-vlan[-1].name='hwnet'
 set wireless.@wifi-vlan[-1].network='hwnet'
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio0'
-set wireless.@wifi-station[-1].vid='179'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio0'
+#set wireless.@wifi-station[-1].vid='179'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].iface='default_radio1'
@@ -77,10 +87,10 @@ set wireless.@wifi-vlan[-1].vid='90'
 set wireless.@wifi-vlan[-1].name='aya'
 set wireless.@wifi-vlan[-1].network='ayaneo'
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio1'
-set wireless.@wifi-station[-1].vid='90'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio1'
+#set wireless.@wifi-station[-1].vid='90'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].iface='default_radio0'
@@ -88,50 +98,53 @@ set wireless.@wifi-vlan[-1].vid='52'
 set wireless.@wifi-vlan[-1].name='iot'
 set wireless.@wifi-vlan[-1].network='iot'
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio0'
-set wireless.@wifi-station[-1].vid='52'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio0'
+#set wireless.@wifi-station[-1].vid='52'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
 set wireless.@wifi-vlan[-1].vid='62'
 set wireless.@wifi-vlan[-1].name='beta'
 set wireless.@wifi-vlan[-1].network='betatest'
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].vid='62'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].vid='62'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 
 add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio0'
 set wireless.@wifi-vlan[-1].vid='133'
 set wireless.@wifi-vlan[-1].name='sma'
 set wireless.@wifi-vlan[-1].network="sma"
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio0'
-set wireless.@wifi-station[-1].vid='133'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio0'
+#set wireless.@wifi-station[-1].vid='133'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio1'
 set wireless.@wifi-vlan[-1].vid='50'
 set wireless.@wifi-vlan[-1].name='wlan0'
 set wireless.@wifi-vlan[-1].network="wlan0"
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio1'
-set wireless.@wifi-station[-1].vid='50'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio1'
+#set wireless.@wifi-station[-1].vid='50'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 add wireless wifi-vlan
+set wireless.@wifi-vlan[-1].iface='default_radio0'
 set wireless.@wifi-vlan[-1].vid='51'
 set wireless.@wifi-vlan[-1].name='wlan1'
 set wireless.@wifi-vlan[-1].network="wlan1"
 
-add wireless wifi-station
-set wireless.@wifi-station[-1].iface='default_radio1'
-set wireless.@wifi-station[-1].vid='51'
-set wireless.@wifi-station[-1].key="$(genpasswd 16)"
+#add wireless wifi-station
+#set wireless.@wifi-station[-1].iface='default_radio1'
+#set wireless.@wifi-station[-1].vid='51'
+#set wireless.@wifi-station[-1].key="$(genpasswd 16)"
 
 EOI
 
