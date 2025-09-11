@@ -8,4 +8,9 @@ then
 	uci commit xsdk
 fi
 
+
+# remove this line if we think it is fixed.
+reboot
+
 exit 0
+
