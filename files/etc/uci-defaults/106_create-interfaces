@@ -58,6 +58,9 @@ then
 	uci set network.aqara.device='br-lan.178'
 	uci set network.aqara.defaultroute='0'
 	uci set network.aqara.delegate='0'
+        uci set network.aqara.ip6assign '48'
+        uci add_list network.aqara.ip6class='local'
+        uci set network.aqara.ip6ifaceid='::a1'
 
 	uci add_list firewall.@zone[0].network='aqara'
 
