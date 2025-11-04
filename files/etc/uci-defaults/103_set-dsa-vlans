@@ -8,6 +8,7 @@ router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 if [ "$default_lan" != "br-lan.169" -a "$(uci -q get xsdk.@factory[0].init)" != "1" -a "$router_model" = "glinet,gl-mt6000" -o "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 then
 	uci add_list network.@device[0].ports='vx0'
+        uci set network.@device[0].ipv6='1'
 
     # create vlan bridge-vlan for lan.
     uci add network bridge-vlan

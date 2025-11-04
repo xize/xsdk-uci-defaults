@@ -253,9 +253,7 @@ set network.aqaranet.device="br-lan.178"
 set network.aqaranet.ipaddr="10.233.10.1"
 set network.aqaranet.netmask="255.255.255.0"
 set network.aqaranet.defaultroute="0"
-add_list network.aqaranet.ip6class="local"
-set network.aqaranet.ip6assign='48'
-set network.aqaranet.ip6ifaceid='::a1'
+set network.aqaranet.delegate="0"
 
 set dhcp.aqaranet="dhcp"
 set dhcp.aqaranet.interface="aqaranet"
