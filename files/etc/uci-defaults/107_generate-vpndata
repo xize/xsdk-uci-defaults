@@ -8,7 +8,9 @@ then
     uci set network.wgclient='interface'
     uci set network.wgclient.proto='wireguard'
     uci set network.wgclient.private_key="$(cat /tmp/privkey)"
-    uci set network.wgclient.addresses='10.64.132.12/32'
+    uci add_list network.wgclient.addresses='10.64.132.12/32'
+    uci add_list network.wgclient.addresses='fc00:bbbb:bbbb:bb01::1:2/128'
+
     uci set network.wgclient.defaultroute='0'
     uci set network.wgclient.mtu='1472'
     uci set network.wgclient.force_link='1'
@@ -17,29 +19,11 @@ then
     uci add network wireguard_wgclient
     uci set network.@wireguard_wgclient[-1].description='Mullvad_nl-ams-wg-001'
     uci add_list network.@wireguard_wgclient[-1].allowed_ips='0.0.0.0/0'
+    uci add_list network.@wireguard_wgclient[-1].allowed_ips='::/0'
     uci set network.@wireguard_wgclient[-1].endpoint_host='192.168.238.1' # note we do not want to annoy mullvad by unaware users.
     uci set network.@wireguard_wgclient[-1].endpoint_port='3004'
     uci set network.@wireguard_wgclient[-1].persistent_keepalive='25'
     uci set network.@wireguard_wgclient[-1].public_key="$(cat /tmp/pubkey)"
-
-    # creating wg_pia placeholder
-    wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
-    uci set network.wg_pia='interface'
-    uci set network.wg_pia.proto='wireguard'
-    uci set network.wg_pia.private_key="$(cat /tmp/privkey)"
-    uci set network.wg_pia.addresses='10.6.193.223/32'
-    uci set network.wg_pia.defaultroute='0'
-    uci set network.wg_pia.mtu='1472'
-    uci set network.wg_pia.force_link='1'
-    uci set network.wg_pia.delegate='0'
-
-    uci add network wireguard_wg_pia
-    uci set network.@wireguard_wg_pia[-1].description='PIA NL Netherlands Streaming Optimized'
-    uci add_list network.@wireguard_wg_pia[-1].allowed_ips='0.0.0.0/0'
-    uci set network.@wireguard_wg_pia[-1].endpoint_host='192.168.238.5' # note we do not want to annoy mullvad by unaware users.
-    uci set network.@wireguard_wg_pia[-1].endpoint_port='1337'
-    uci set network.@wireguard_wg_pia[-1].persistent_keepalive='25'
-    uci set network.@wireguard_wg_pia[-1].public_key="$(cat /tmp/pubkey)"
 
     # creating wifivpn
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
@@ -48,9 +32,12 @@ then
     uci set network.wifivpn.private_key="$(cat /tmp/privkey)"
     uci set network.wifivpn.listen_port='51820'
     uci add_list network.wifivpn.addresses='10.39.95.1/24'
+    uci add_list network.wifivpn.addresses='fd19:8312:9a2d::/56'
     uci set network.wifivpn.defaultroute='0'
+    uci set network.wifivpn.ip6assign='64'
+    uci set network.wifivpn.ip6hint='B2'
     uci set network.wifivpn.multicast='1'
-    uci set network.wifivpn.delegate='0'
+    uci set network.wifivpn.delegate='1'
     uci set network.wifivpn.mtu='1500'
 
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
@@ -62,6 +49,7 @@ then
     uci set network.@wireguard_wifivpn[-1].endpoint_port='51820'
     uci set network.@wireguard_wifivpn[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='10.39.95.2/32'
+    uci add_list network.@wireguard_wifivpn[-1].allowed_ips='fd19:8312:9a2d::b2:2/128'
     # the wireguard server needs to be aware of 224.0.0.0/8 aswell, now on the client config also this needs to be placed, 0.0.0.0/0 might not be valid for L2 we have to explicity tell wireguard.
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='224.0.0.0/8'
 
@@ -76,10 +64,11 @@ then
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='10.39.95.3/32'
     # the wireguard server needs to be aware of 224.0.0.0/8 aswell, now on the client config also this needs to be placed, 0.0.0.0/0 might not be valid for L2 we have to explicity tell wireguard.
     uci add_list network.@wireguard_wifivpn[-1].allowed_ips='224.0.0.0/8'
+    uci add_list network.@wireguard_wifivpn[-1].allowed_ips='fd19:8312:9a2d::b2:3/128'
 
     uci add network route
     uci set network.@route[-1].interface='wifivpn'
-    uci set network.@route[-1].target='224.0.0.0/4'
+    uci set network.@route[-1].target='224.0.0.0/8'
     uci set network.@route[-1].type='multicast'
     uci set network.@route[-1].table='main'
 
@@ -88,6 +77,18 @@ then
     uci set network.@route[-1].target='10.64.0.1/32'
     uci set network.@route[-1].table='main'
 
+    uci add network route6
+    uci set network.@route6[-1].interface='wgclient'
+    uci set network.@route6[-1].target='::/0'
+
+    uci add network route6
+    uci set network.@route6[-1].interface='wifivpn'
+    uci set network.@route6[-1].target='::/0'
+
+    uci add network route6
+    uci set network.@route6[-1].interface='wgserver'
+    uci set network.@route6[-1].target='::/0'
+
     # generating wgserver
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
     uci set network.wgserver="interface"
@@ -95,9 +96,12 @@ then
     uci set network.wgserver.private_key="$(cat /tmp/privkey)"
     uci set network.wgserver.listen_port='4443'
     uci add_list network.wgserver.addresses="10.6.7.1/24"
+    uci add_list network.wgserver.addresses="fd2c:d515:5290::/56"
+    uci set network.wgserver.ip6assign='64'
+    uci set network.wgserver.ip6hint='B1'
     uci set network.wgserver.force_link='1'
     uci set network.wgserver.defaultroute='1'
-    uci set network.wgserver.delegate='0'
+    uci set network.wgserver.delegate='1'
     uci set network.wgserver.mtu='1472'
 
     uci add firewall redirect
@@ -118,6 +122,7 @@ then
     uci set network.@wireguard_wgserver[-1].endpoint_host='192.168.122.4'
     uci set network.@wireguard_wgserver[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wgserver[-1].allowed_ips='10.6.7.2/32'
+    uci add_list network.@wireguard_wgserver[-1].allowed_ips='fd2c:d515:5290::b1:2/128'
 
 
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
@@ -130,6 +135,7 @@ then
     uci set network.@wireguard_wgserver[-1].endpoint_host='192.168.122.4'
     uci set network.@wireguard_wgserver[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wgserver[-1].allowed_ips='10.6.7.3/32'
+    uci add_list network.@wireguard_wgserver[-1].allowed_ips='fd2c:d515:5290::b1:3/128'
 
     wg genkey | tee /tmp/privkey | wg pubkey > /tmp/pubkey
     uci add network wireguard_wgserver
@@ -141,6 +147,7 @@ then
     uci set network.@wireguard_wgserver[-1].endpoint_host='192.168.122.4'
     uci set network.@wireguard_wgserver[-1].persistent_keepalive='25'
     uci add_list network.@wireguard_wgserver[-1].allowed_ips='10.6.7.4/32'
+    uci add_list network.@wireguard_wgserver[-1].allowed_ips='fd2c:d515:5290::b1:4/128'
 
     rm /tmp/privkey
     rm /tmp/pubkey
