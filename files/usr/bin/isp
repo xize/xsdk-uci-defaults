@@ -22,7 +22,7 @@ then
         uci set network.wan.username="$router_mac@internet"
     elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
     then
-        uci set network.wan.device="eth0.6"
+        uci set network.wan.device="wan.6"
         router_mac=echo $(cat /sys/class/net/eth0/address | tr ":" "-")
         echo "isp: setting up mac address for eth0!, mac: $router_mac"
         uci set network.wan.username="$router_mac@internet"
@@ -39,7 +39,7 @@ then
         uci set network.wan.device="eth1.300"
     elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
     then
-        uci set network.wan.device="eth0.300"
+        uci set network.wan.device="wan.300"
     fi
     
     uci commit network
