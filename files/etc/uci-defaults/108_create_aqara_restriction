@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# This script is optional if you want to not have a extremely limited aqara network remove this script from uci-defauls :), this may only work on EU region.
+
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+
+uci batch DH <<
+
+add dhcp ipset
+set dhcp.@ipset[-1].name='aqara'
+set dhcp.@ipset[-1].table_family='inet'
+add_list dhcp.@ipset[-1].domain='p2p2-ger.aqara.com'
+add_list dhcp.@ipset[-1].domain='p2p3-ger.aqara.com'
+# note to self: one entry is missing with begin trailing aiot-camera-ger2 on myqcloud, this however need to be manually added since this is very private, plus OpenWrt ipsets do not wildcard(!)
+add_list dhcp.@ipset[-1].domain='myqloud.com'
+add_list dhcp.@ipset[-1].domain='forum.aqara.com'
+add_list dhcp.@ipset[-1].domain='www.aqara.com'
+add_list dhcp.@ipset[-1].domain='track-ger.aqara.com'
+add_list dhcp.@ipset[-1].domain='res-ger.aqara.com'
+add_list dhcp.@ipset[-1].domain='coap-ger.aqara.com'
+add_list dhcp.@ipset[-1].domain='rpc-get.aqara.com'
+add_list dhcp.@ipset[-1].domain='webrtc-eu.aqara.com'
+add_list dhcp.@ipset[-1].domain='cdn.aqara.com'
+add_list dhcp.@ipset[-1].domain='aqara.com'
+
+uci batch FW <<
+
+uci add firewall ipset
+uci set firewall.@ipset[-1].name='aqara'
+uci set firewall.@ipset[-1].family='ipv4'
+uci set firewall.@ipset[-1].match='dest_ip'
+uci set firewall.@ipset[-1].counters='1'
+
+add firewall rule
+set firewall.@rule[-1].name='aqara-set-mark-on-ipset'
+set firewall.@rule[-1].src='aqara'
+set firewall.@rule[-1].dest='wan'
+set firewall.@rule[-1].ipset='aqara'
+set firewall.@rule[-1].target='MARK'
+set firewall.@rule[-1].set_mark='0xADE/0xADE'
+
+add firewall rule
+set firewall.@rule[-1].name='aqara-allow-internet'
+set firewall.@rule[-1].src='aqara'
+set firewall.@rule[-1].dest='wan'
+set firewall.@rule[-1].target='ACCEPT'
+set firewall.@rule[-1].mark='0xADE/0xADE'
+
+add firewall rule
+set firewall.@rule[-1].name='aqara-isolate-router'
+set firewall.@rule[-1].src='aqara'
+set firewall.@rule[-1].dest_port='!68 !67'
+set firewall.@rule[-1].target='DROP'
+
+add firewall rule
+set firewall.@rule[-1].name='block-non-aqara'
+set firewall.@rule[-1].src='aqara'
+set firewall.@rule[-1].dest='wan'
+# do not block ports still used by aqaras hardcoded ips to tencent!
+set firewall.@rule[-1].dest_port='!11121  !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353'
+
+FW
+
+uci commit firewall
+uci commit dhcp
+
+
+fi
+
+exit 0
+
