@@ -12,7 +12,6 @@ set dhcp.@ipset[-1].name='aqara'
 set dhcp.@ipset[-1].table_family='inet'
 add_list dhcp.@ipset[-1].domain='p2p2-ger.aqara.com'
 add_list dhcp.@ipset[-1].domain='p2p3-ger.aqara.com'
-# note to self: one entry is missing with begin trailing aiot-camera-ger2 on myqcloud, this however need to be manually added since this is very private, plus OpenWrt ipsets do not wildcard(!)
 add_list dhcp.@ipset[-1].domain='myqloud.com'
 add_list dhcp.@ipset[-1].domain='forum.aqara.com'
 add_list dhcp.@ipset[-1].domain='www.aqara.com'
@@ -28,11 +27,11 @@ DH
 
 uci batch << FW
 
-uci add firewall ipset
-uci set firewall.@ipset[-1].name='aqara'
-uci set firewall.@ipset[-1].family='ipv4'
-uci set firewall.@ipset[-1].match='dest_ip'
-uci set firewall.@ipset[-1].counters='1'
+add firewall ipset
+set firewal.@ipset[-1].name='aqara'
+set firewall.@ipset[-1].family='ipv4'
+set firewall.@ipset[-1].match='dest_ip'
+set firewall.@ipset[-1].counters='1'
 
 add firewall rule
 set firewall.@rule[-1].name='aqara-set-mark-on-ipset'
@@ -59,8 +58,8 @@ add firewall rule
 set firewall.@rule[-1].name='block-non-aqara'
 set firewall.@rule[-1].src='aqara'
 set firewall.@rule[-1].dest='wan'
-# do not block ports still used by aqaras hardcoded ips to tencent!
 set firewall.@rule[-1].dest_port='!11121  !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353'
+set firewall.@rule[-1].target='DROP'
 
 FW
 
