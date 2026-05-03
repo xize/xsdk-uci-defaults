@@ -5,7 +5,7 @@
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 
-uci batch DH <<
+uci batch << DH
 
 add dhcp ipset
 set dhcp.@ipset[-1].name='aqara'
@@ -26,7 +26,7 @@ add_list dhcp.@ipset[-1].domain='aqara.com'
 
 DH
 
-uci batch FW <<
+uci batch << FW
 
 uci add firewall ipset
 uci set firewall.@ipset[-1].name='aqara'
