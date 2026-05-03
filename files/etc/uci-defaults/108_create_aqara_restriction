@@ -28,7 +28,7 @@ DH
 uci batch << FW
 
 add firewall ipset
-set firewal.@ipset[-1].name='aqara'
+set firewall.@ipset[-1].name='aqara'
 set firewall.@ipset[-1].family='ipv4'
 set firewall.@ipset[-1].match='dest_ip'
 set firewall.@ipset[-1].counters='1'
