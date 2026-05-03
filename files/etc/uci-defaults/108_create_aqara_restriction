@@ -24,6 +24,8 @@ add_list dhcp.@ipset[-1].domain='webrtc-eu.aqara.com'
 add_list dhcp.@ipset[-1].domain='cdn.aqara.com'
 add_list dhcp.@ipset[-1].domain='aqara.com'
 
+DH
+
 uci batch FW <<
 
 uci add firewall ipset
