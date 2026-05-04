@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# This script is optional if you want to not have a extremely limited aqara network remove this script from uci-defauls :), this may only work on EU region.
-
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 
