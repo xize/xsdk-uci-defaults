@@ -35,4 +35,3 @@ uci commit network
 fi
 
 exit 0
-
