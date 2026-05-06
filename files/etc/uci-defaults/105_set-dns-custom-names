@@ -3,7 +3,6 @@ if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 	
 	uci batch << EOI
-	#kvmnet
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="kvm1.lan"
@@ -16,10 +15,6 @@ then
 	add dhcp domain
 	set dhcp.@domain[-1].name="kvm3.lan"
 	set dhcp.@domain[-1].ip="10.46.214.102"
-
-	#end kvmnet
-
-	#proxmox
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="pve.lan"
@@ -88,8 +83,6 @@ then
 	add dhcp domain
 	set dhcp.@domain[-1].name="unifi.lan"
 	set dhcp.@domain[-1].ip="10.234.53.122"
-
-	# end proxmox
 
 
 	add dhcp domain

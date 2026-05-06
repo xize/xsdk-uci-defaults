@@ -347,7 +347,6 @@ add firewall forwarding
 set firewall.@forwarding[-1].src="beta"
 set firewall.@forwarding[-1].dest="wan"
 
-# proxmox
 set network.proxmox=interface
 set network.proxmox.proto="static"
 set network.proxmox.device="br-lan.70"
@@ -373,7 +372,6 @@ add firewall forwarding
 set firewall.@forwarding[-1].src="proxmox"
 set firewall.@forwarding[-1].dest="wan"
 
-# proxmox_vpn
 set network.proxmox_vpn=interface
 set network.proxmox_vpn.proto="static"
 set network.proxmox_vpn.device="br-lan.71"
@@ -399,7 +397,6 @@ add firewall forwarding
 set firewall.@forwarding[-1].src="proxmox_vpn"
 set firewall.@forwarding[-1].dest="wgclient"
 
-# sma
 set network.sma=interface
 set network.sma.proto="static"
 set network.sma.device="br-lan.133"
@@ -451,3 +448,4 @@ EOI
 fi
 
 exit 0
+

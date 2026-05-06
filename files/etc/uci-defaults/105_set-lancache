@@ -1,8 +1,6 @@
 #!/bin/sh
 
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]; then
-
-    # allow any zone to use lancache, we do use /etc/dnsmasq.conf with the configuration provided from ukclans.
     uci add firewall rule
     uci set firewall.@rule[-1].name='allow-lancache-from-any'
     uci set firewall.@rule[-1].src='*'
