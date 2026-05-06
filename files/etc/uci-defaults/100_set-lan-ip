@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# set ipaddr to our own.
 router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 readip=$(uci get network.lan.ipaddr)
 
@@ -18,3 +17,4 @@ then
 fi
 
 exit 0
+
