@@ -16,3 +16,4 @@ uci commit system
 fi
 
 exit 0
+
