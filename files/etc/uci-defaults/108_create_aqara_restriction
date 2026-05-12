@@ -20,6 +20,16 @@ add_list dhcp.@ipset[-1].domain='rpc-get.aqara.com'
 add_list dhcp.@ipset[-1].domain='webrtc-eu.aqara.com'
 add_list dhcp.@ipset[-1].domain='cdn.aqara.com'
 add_list dhcp.@ipset[-1].domain='aqara.com'
+add_list dhcp.@ipset[-1].domain='tuya.com'
+add_list dhcp.@ipset[-1].domain='tuyaeu.com'
+add_list dhcp.@ipset[-1].domain='a1.tuyaeu.com'
+add_list dhcp.@ipset[-1].domain='qin.tuyacn.com'
+add_list dhcp.@ipset[-1].domain='iot-dns.com'
+add_list dhcp.@ipset[-1].domain='tuyacdn.com'
+add_list dhcp.@ipset[-1].domain='auth.tuya.com'
+add_list dhcp.@ipset[-1].domain='m1.tuyaeu.com'
+add_list dhcp.@ipset[-1].domain='stream.tuyaeu.com'
+add_list dhcp.@ipset[-1].domain='cdn5th.com'
 
 DH
 
@@ -56,7 +66,7 @@ add firewall rule
 set firewall.@rule[-1].name='block-non-aqara'
 set firewall.@rule[-1].src='aqara'
 set firewall.@rule[-1].dest='wan'
-set firewall.@rule[-1].dest_port='!11121 !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353'
+set firewall.@rule[-1].dest_port='!11121 !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353 !8883 !3478 !1443'
 set firewall.@rule[-1].target='DROP'
 
 FW
