@@ -56,7 +56,7 @@ add firewall rule
 set firewall.@rule[-1].name='block-non-aqara'
 set firewall.@rule[-1].src='aqara'
 set firewall.@rule[-1].dest='wan'
-set firewall.@rule[-1].dest_port='!11121  !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353'
+set firewall.@rule[-1].dest_port='!11121 !32100 !2356 !5050 !11111 !5224 !51827 !11111 !10008 !5353'
 set firewall.@rule[-1].target='DROP'
 
 FW
