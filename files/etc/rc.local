@@ -1,0 +1,13 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+# Turn off flow control for lan2
+# lan2 is negotiated to 100M by JetKVM
+# But because hardware offloading is used on higher negotiated ports this is not wise to have flow control active on this port.
+# as result: lan2 start sending wrongly PAUSE frames to the bridge on a high congested network without the reason ports are crossed or directly connected to, bridge goes down.
+# as result: router does not recover, and a hard reboot is needed, review also has be done on the network switches, this command can only be removed if you are 100% there is not a
+# 100M port on the Flint 2 or T-56 present in conjunction with faster ports.
+
+ethtool -A lan2 rx off tx off
+
+exit 0
