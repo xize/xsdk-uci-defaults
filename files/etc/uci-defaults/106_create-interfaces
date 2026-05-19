@@ -12,6 +12,7 @@ then
 	uci set network.lan.ipaddr='10.234.53.3/24'
 	uci set network.lan.netmask='255.255.255.0'
 	uci set network.lan.broadcast='10.234.53.255'
+	uci set network.lan.dns='10.234.53.1'
 
 	uci set network.wlan0=interface
 	uci set network.wlan0.proto='dhcp'
