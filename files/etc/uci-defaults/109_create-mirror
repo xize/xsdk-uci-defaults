@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+
+	echo > /etc/config/mirror
+	uci add mirror defaults
+	uci set mirror.@defaults[-1].enabled='0'
+	uci commit mirror
+
+	uci add network bridge-vlan
+	uci set network.@bridge-vlan[-1].device='br-lan'
+	uci set network.@bridge-vlan[-1].vlan='222'
+	uci set network.@bridge-vlan[-1].ports='lan1:t'
+
+	uci set network.mirror=interface
+	uci set network.mirror.device='br-lan.222'
+	uci set network.mirror.defaultroute='0'
+	uci set network.mirror.delegate='0'
+
+	uci commit network
+fi
+
+exit 0

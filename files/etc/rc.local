@@ -10,4 +10,11 @@
 
 ethtool -A lan2 rx off tx off
 
+if [ "$(uci -q get mirror.@defaults[-1].enabled)" = '1' ] 
+then
+	set_mirror
+fi
+
+
 exit 0
+
