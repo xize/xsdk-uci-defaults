@@ -1,8 +1,5 @@
 #!/bin/sh
 
-
-createMonitor $1 $2 $3
-
 function createMonitor {
 
 
@@ -20,6 +17,8 @@ function createMonitor {
 	fi
 
 }
+
+createMonitor $1 $2 $3
 
 exit 0
 
