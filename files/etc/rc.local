@@ -28,8 +28,9 @@ then
 	#
 	# now the interface can be used with suricata and evebox :)!
 	
-	set_mirror br-lan br-lan.222 true
-	set_mirror eth1 br-lan.222 true
+	set_mirror br-lan br-lan.222
+	set_mirror eth1.300 br-lan.222
+	set_mirror wgclient br-lan.222
 fi
 
 
