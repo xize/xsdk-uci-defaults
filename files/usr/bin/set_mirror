@@ -8,7 +8,7 @@ function createMonitor {
 	monitor_outbound=$3
 
 	tc qdisc add dev $monitor_iface handle ffff: ingress
-	tc filter add dev $monitor_iface parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev $monitor_vlan
+	tc filter add dev $monitor_iface ingress matchall action mirred egress mirror dev $monitor_vlan
 
 	if [ "$monitor_outbound" ];
 	then
