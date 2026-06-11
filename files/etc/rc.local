@@ -12,7 +12,7 @@ ethtool -A lan2 rx off tx off
 
 if [ "$(uci -q get mirror.@defaults[-1].enabled)" = '1' ] 
 then
-	set_mirror
+	set_mirror br-lan br-lan.222 true
 fi
 
 

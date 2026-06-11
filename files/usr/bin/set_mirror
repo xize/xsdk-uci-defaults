@@ -1,17 +1,25 @@
 #!/bin/sh
 
-# 1( first create vlan br-lan.222
-# 2( then if br-lan.222 is created, create a unmanaged interface this is absolutely needed for the ip link up event, only then tc command knows about it).
 
-# 1. Add the ingress filter to mirror incoming traffic
-tc qdisc add dev br-lan handle ffff: ingress
-tc filter add dev br-lan parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev br-lan.222
+createMonitor $1 $2 $3
 
-# for outbound... like firewalls traffic goes from source to destination, and only on the same line there can be a respond, it is not logically we look into inbound for IDS so this is not needed here under.
+function createMonitor {
 
-# 2. Add the egress filter to mirror outgoing traffic
-tc qdisc add dev br-lan root handle 1: htb
-tc filter add dev br-lan parent 1: protocol all u32 match u32 0 0 action mirred egress mirror dev br-lan.222
+
+	monitor_iface=$1
+	monitor_vlan=$2
+	monitor_outbound=$3
+
+	tc qdisc add dev $monitor_iface handle ffff: ingress
+	tc filter add dev $monitor_iface parent ffff: protocol all u32 match u32 0 0 action mirred egress mirror dev $monitor_vlan
+
+	if [ "$monitor_outbound" ];
+	then
+		tc qdisc add dev $monitor_iface root handle 1: htb
+		tc filter add dev $monitor_iface parent 1: protocol all u32 match u32 0 0 action mirred egress mirror dev $monitor_vlan
+	fi
+
+}
 
 exit 0
 
