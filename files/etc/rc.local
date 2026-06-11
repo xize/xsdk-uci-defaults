@@ -13,6 +13,7 @@ ethtool -A lan2 rx off tx off
 if [ "$(uci -q get mirror.@defaults[-1].enabled)" = '1' ] 
 then
 	# combines wan and br-lan, it is required to use this command on the other machine:
+	# also it must be set as promisc so we do not write anything to it.
 	#
 	# ip link add link enP3p49s0 name enP3p49s0.222 type vlan id 222
 	# ip link set enP3p49s0.222 promisc up
