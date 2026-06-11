@@ -5,20 +5,14 @@ function createMonitor {
 
 	monitor_iface=$1
 	monitor_vlan=$2
-	monitor_outbound=$3
 
-	tc qdisc add dev $monitor_iface handle ffff: ingress
+	tc qdisc add dev $monitor_iface clsact
 	tc filter add dev $monitor_iface ingress matchall action mirred egress mirror dev $monitor_vlan
-
-	if [ "$monitor_outbound" ];
-	then
-		tc qdisc add dev $monitor_iface root handle 1: htb
-		tc filter add dev $monitor_iface parent 1: protocol all u32 match u32 0 0 action mirred egress mirror dev $monitor_vlan
-	fi
+	tc filter add dev $monitor_iface egress matchall action mirred egress mirror dev $monitor_vlan
 
 }
 
-createMonitor $1 $2 $3
+createMonitor $1 $2
 
 exit 0
 
