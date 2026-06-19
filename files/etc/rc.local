@@ -10,29 +10,5 @@
 
 ethtool -A lan2 rx off tx off
 
-if [ "$(uci -q get mirror.@defaults[-1].enabled)" = '1' ] 
-then
-	# combines wan and br-lan, it is required to use this command on the other machine:
-	# also it must be set as promisc so we do not write anything to it.
-	#
-	# ip link add link enP3p49s0 name enP3p49s0.222 type vlan id 222
-	# ip link set enP3p49s0.222 promisc up
-	#
-	# to verify:
-	#
-	# ip link show
-	# tcpdump -i enP3p49s0.222
-	#
-	# note:
-	# the interface can be different per system.
-	#
-	# now the interface can be used with suricata and evebox :)!
-	
-	set_mirror br-lan br-lan.222
-	set_mirror eth1.300 br-lan.222
-	set_mirror wgclient br-lan.222
-fi
-
-
 exit 0
 
