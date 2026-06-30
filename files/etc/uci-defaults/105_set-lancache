@@ -1,13 +1,47 @@
 #!/bin/sh
 
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]; then
-    uci add firewall rule
-    uci set firewall.@rule[-1].name='allow-lancache-from-any'
-    uci set firewall.@rule[-1].src='*'
-    uci set firewall.@rule[-1].dest='proxmox'
-    uci set firewall.@rule[-1].dest_port='80 443 53'
-    uci set firewall.@rule[-1].dest_ip='10.244.244.5'
-    uci commit firewall
+
+	uci set dhcp.lancache=dnsmasq
+	uci set dhcp.lancache.ignore='1'
+	uci set dhcp.lancache.addnmount='/var/run/pbr.dnsmasq'
+	uci set dhcp.lancache.rebind_protection='0'
+	uci set dhcp.lancache.localservice='0'
+	uci set dhcp.lancache.port='7865'
+	uci set dhcp.lancache.noresolv='1'
+	uci add_list dhcp.lancache.server='127.0.0.1#5342'
+	uci add_list dhcp.lancache.address='/lancache.steamcontent.com/10.244.244.5' '/patches.rockstargames.com/10.244.244.5' '/cdn-patch.swtor.com/10.244.244.5' '/lvlt.cdn.ea.com/10.244.244.5' '/origin-a.akamaihd.net/10.244.244.5' '/gs2-ww-prod.psn.akadns.net/10.244.244.5' '/gs2.ww.prod.dl.playstation.net.edgesuite.net/10.244.244.5' '/gs-sec.ww.np.dl.playstation.net/10.244.244.5' '/gst.prod.dl.playstation.net/10.244.244.5' '/playstation4.sony.akadns.net/10.244.244.5' '/psnobj.prod.dl.playstation.net/10.244.244.5' '/sgst.prod.dl.playstation.net/10.244.244.5' '/theia.dl.playstation.net/10.244.244.5' '/tmdb.np.dl.playstation.net/10.244.244.5' '/uef.np.dl.playstation.net/10.244.244.5' '/vulcan.dl.playstation.net/10.244.244.5'
+
+	uci add firewall rule
+	uci set firewall.@rule[-1].name='allow-lancache-from-any'
+	uci set firewall.@rule[-1].src='*'
+	uci set firewall.@rule[-1].dest='proxmox'
+	uci set firewall.@rule[-1].dest_port='80 443 53'
+	uci set firewall.@rule[-1].dest_ip='10.244.244.5'
+
+	uci add firewall redirect
+	uci set firewall.@redirect[-1].name='allow-pcnet-lancache'
+	uci set firewall.@redirect[-1].src='pcnet'
+	uci set firewall.@redirect[-1].src_dport='53'
+	uci set firewall.@redirect[-1].dest_port='7865'
+	uci set firewall.@redirect[-1].target='DNAT'
+
+	uci add firewall redirect
+        uci set firewall.@redirect[-1].name='allow-aya-lancache'
+        uci set firewall.@redirect[-1].src='ayaneo'
+        uci set firewall.@redirect[-1].src_dport='53'
+        uci set firewall.@redirect[-1].dest_port='7865'
+        uci set firewall.@redirect[-1].target='DNAT'
+
+        uci add firewall redirect
+        uci set firewall.@redirect[-1].name='allow-ps5-lancache'
+        uci set firewall.@redirect[-1].src='ps5'
+        uci set firewall.@redirect[-1].src_dport='53'
+        uci set firewall.@redirect[-1].dest_port='7865'
+        uci set firewall.@redirect[-1].target='DNAT'
+
+	uci commit firewall
+	uci commit dhcp
 fi
 
 exit 0
