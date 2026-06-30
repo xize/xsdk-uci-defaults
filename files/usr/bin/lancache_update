@@ -65,6 +65,10 @@ EO
         done
 
 	uci commit dhcp
+
+	cd /tmp
+	rm -rf cache-domains
+	rm -rf lancache.uci
 fi
 
 exit 0
