@@ -2,8 +2,8 @@
 
 if [[ $# -eq 0 ]];
 then
-	echo "modifies dnsmasq instance 'lancache' with the latest listings from cache-domains"
-	echo ""
+        echo "modifies dnsmasq instance 'lancache' with the latest listings from cache-domains"
+        echo ""
         echo "requirements: bash, git-http, jq"
         echo 'usage: lancache ip (sets the ip of lancache, and downloads latest cache-domains...)'
         exit 0
@@ -11,16 +11,17 @@ fi
 
 if [ "$(uci -q get dhcp.lancache)" ];
 then
-	cd /tmp
+        cd /tmp
 
-	if [ -d 'cache-domains' ]; then
-	        rm -rf cache-domains
-	fi
+        if [ -d 'cache-domains' ]; then
+                rm -rf cache-domains
+        fi
+        echo "cloning github.com/uklans/cache-domains to /tmp/cache-domains"
+        git clone --quiet https://github.com/uklans/cache-domains
+        echo "cloning done."
+        cd cache-domains/scripts
 
-	git clone https://github.com/uklans/cache-domains
-
-	cd cache-domains/scripts
-
+echo "dropping config, in cache-domains appending the ip from argument as value."
 cat << EO > config.json
 {
   "combined_output": true,
@@ -44,17 +45,18 @@ cat << EO > config.json
 }
 EO
 
-	bash create-dnsmasq.sh
+        echo "launching create-dnsmasq"
+        bash create-dnsmasq.sh > /dev/null
+        echo "done create-dnsmasq"
+        cd output/dnsmasq
+        echo "sanitizing dnsmasq config to work with uci."
+        cat lancache.conf | grep -o '^[^#]*' | sed 's/address\=//' | grep -vwE "local=" > /tmp/lancache.uci
 
-	cd output/dnsmasq
-
-	cat lancache.conf | grep -o '^[^#]*' | sed 's/address\=//' | grep -vwE "local=" > /tmp/lancache.uci
-
-	IN=$(cat /tmp/lancache.uci)
+        IN=$(cat /tmp/lancache.uci)
 
 
-	if [ "$(uci -q get dhcp.lancache.address)" ];
-	then
+        if [ "$(uci -q get dhcp.lancache.address)" ];
+        then
                 uci del dhcp.lancache.address
         fi
 
@@ -64,11 +66,14 @@ EO
                 uci add_list dhcp.lancache.address="$x"
         done
 
-	uci commit dhcp
+        uci commit dhcp
 
-	cd /tmp
-	rm -rf cache-domains
-	rm -rf lancache.uci
+        echo "uci command saved for dhcp."
+
+        echo "cleaning up ;-)"
+        cd /tmp
+        rm -rf cache-domains
+        rm -rf lancache.uci
 fi
 
 exit 0
