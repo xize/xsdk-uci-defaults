@@ -123,9 +123,26 @@ then
         uci set dhcp.sma.ignore='1'
 
 
+	uci add network bridge-vlan
+	uci set network.@bridge-vlan[-1].device='b-lan'
+	uci set network.@bridge-vlan[-1].vlan='10'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan5:t' || uci add_list network.@bridge-vlan[-1].ports='lan4:t' 
+	uci set network.mgmt='interface'
+	uci set network.mgmt.proto='static'
+	uci set network.mgmt.defaultroute='0'
+	uci set network.mgmt.delegate='0'
+	uci set network.mgmt.device='br-lan.10'
+	uci set network.mgmt.netmask='255.255.255.0'
+	uci set network.mgmt.ipaddr='192.168.76.1'
+	uci set dhcp.mgmt=dhcp
+	uci set dhcp.mgmt.interface='mgmt'
+	uci set dhcp.mgmt.start='2'
+	uci set dhcp.mgmt.limit='150'
+
 	uci commit network
 	uci commit dhcp
 	
 fi
 
 exit 0
+
