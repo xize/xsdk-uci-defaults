@@ -1,0 +1,34 @@
+#!/bin/sh
+
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+then
+
+uci batch << EO
+
+add firewall rule
+set firewall.@rule[-1].name='limit-bitmagnet'
+set firewall.@rule[-1].src='proxmox_vpn'
+set firewall.@rule[-1].dest='wgclient'
+set firewall.@rule[-1].src_ip='10.245.245.64'
+set firewall.@rule[-1].proto='udp'
+set firewall.@rule[-1].limit='1024/hour'
+set firewall.@rule[-1].target='ACCEPT'
+set firewall.@rule[-1].enabled='1'
+
+add firewall rule
+set firewall.@rule[-1].name='fallback-limit-bitmagnet'
+set firewall.@rule[-1].src='proxmox_vpn'
+set firewall.@rule[-1].src_ip='10.245.245.64'
+set firewall.@rule[-1].dest='wgclient'
+set firewall.@rule[-1].proto='udp'
+set firewall.@rule[-1].enabled='1'
+set firewall.@rule[-1].target='DROP'
+
+EO
+
+uci commit firewall
+
+fi
+
+exit 0
+
