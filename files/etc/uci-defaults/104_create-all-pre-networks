@@ -50,6 +50,7 @@ set dhcp.tvboxnet.interface="tvboxnet"
 set dhcp.tvboxnet.start="2"
 set dhcp.tvboxnet.limit="150"
 set dhcp.tvboxnet.leasetime="12h"
+add_list dhcp.tvboxnet.dhcp_option='6,192.168.59.1'
 
 add firewall zone
 set firewall.@zone[-1].name="tvboxnet"
@@ -81,6 +82,7 @@ set dhcp.pcnet.interface="pcnet"
 set dhcp.pcnet.start="2"
 set dhcp.pcnet.limit="150"
 set dhcp.pcnet.leasetime="12h"
+add_list dhcp.pcnet.dhcp_option='6,10.34.79.1'
 
 add firewall zone
 set firewall.@zone[-1].name="pcnet"
@@ -106,6 +108,7 @@ set dhcp.wlan0.interface="wlan0"
 set dhcp.wlan0.start="2"
 set dhcp.wlan0.limit="150"
 set dhcp.wlan0.leasetime="12h"
+add_list dhcp.wlan0.dhcp_option='6,10.234.80.1'
 
 add firewall zone
 set firewall.@zone[-1].name="wlan0"
@@ -131,6 +134,7 @@ set dhcp.wlan1.interface="wlan1"
 set dhcp.wlan1.start="2"
 set dhcp.wlan1.limit="150"
 set dhcp.wlan1.leasetime="12h"
+add_list dhcp.wlan1.dhcp_option='6,10.234.81.1'
 
 add firewall zone
 set firewall.@zone[-1].name="wlan1"
@@ -156,6 +160,7 @@ set dhcp.iot.interface="iot"
 set dhcp.iot.start="2"
 set dhcp.iot.limit="150"
 set dhcp.iot.leasetime="12h"
+add_list dhcp.iot.dhcp_option='6,10.33.77.1'
 
 add firewall zone
 set firewall.@zone[-1].name="iot"
@@ -181,6 +186,7 @@ set dhcp.tvnet.interface="tvnet"
 set dhcp.tvnet.start="2"
 set dhcp.tvnet.limit="150"
 set dhcp.tvnet.leasetime="12h"
+add_list dhcp.tvnet.dhcp_option='6,172.22.33.1'
 
 add firewall zone
 set firewall.@zone[-1].name="tvnet"
@@ -206,6 +212,7 @@ set dhcp.ps5.interface="ps5"
 set dhcp.ps5.start="2"
 set dhcp.ps5.limit="150"
 set dhcp.ps5.leasetime="12h"
+add_list dhcp.ps5.dhcp_option='6,10.56.2.1'
 
 add firewall zone
 set firewall.@zone[-1].name="ps5"
@@ -231,6 +238,7 @@ set dhcp.ayaneo.interface="ayaneo"
 set dhcp.ayaneo.start="2"
 set dhcp.ayaneo.limit="150"
 set dhcp.ayaneo.leasetime="12h"
+add_list dhcp.ayaneo.dhcp_option='6,10.87.32.1'
 
 add firewall zone
 set firewall.@zone[-1].name="ayaneo"
@@ -260,6 +268,7 @@ set dhcp.aqaranet.interface="aqaranet"
 set dhcp.aqaranet.start="2"
 set dhcp.aqaranet.limit="150"
 set dhcp.aqaranet.leasetime="12h"
+add_list dhcp.aqaranet.dhcp_option='6,10.233.10.1'
 
 add firewall zone
 set firewall.@zone[-1].name="aqaranet"
@@ -285,6 +294,7 @@ set dhcp.hwnet.interface="hwnet"
 set dhcp.hwnet.start="2"
 set dhcp.hwnet.limit="150"
 set dhcp.hwnet.leasetime="12h"
+add_list dhcp.hwnet.dhcp_option='6,10.182.32.1'
 	
 add firewall zone
 set firewall.@zone[-1].name="hwnet"
@@ -310,6 +320,7 @@ set dhcp.kvmnet.interface="kvmnet"
 set dhcp.kvmnet.start="2"
 set dhcp.kvmnet.limit="150"
 set dhcp.kvmnet.leasetime="12h"
+add_list dhcp.kvmnet.dhcp_option='6,10.46.214.1'
 	
 add firewall zone
 set firewall.@zone[-1].name="kvmnet"
@@ -335,6 +346,7 @@ set dhcp.betatest.interface="betatest"
 set dhcp.betatest.start="2"
 set dhcp.betatest.limit="150"
 set dhcp.betatest.leasetime="12h"
+add_list dhcp.betatest.dhcp_option='6,10.245.78.1'
 	
 add firewall zone
 set firewall.@zone[-1].name="beta"
@@ -360,6 +372,7 @@ set dhcp.proxmox.interface="proxmox"
 set dhcp.proxmox.start="2"
 set dhcp.proxmox.limit="150"
 set dhcp.proxmox.leasetime="12h"
+add_list dhcp.proxmox.dhcp_option='6,10.244.244.1'
 	
 add firewall zone
 set firewall.@zone[-1].name="proxmox"
@@ -385,6 +398,7 @@ set dhcp.proxmox_vpn.interface="proxmox_vpn"
 set dhcp.proxmox_vpn.start="2"
 set dhcp.proxmox_vpn.limit="150"
 set dhcp.proxmox_vpn.leasetime="12h"
+add_list dhcp.proxmox_vpn.dhcp_option='6,10.245.245.1'
 	
 add firewall zone
 set firewall.@zone[-1].name="proxmox_vpn"
@@ -410,6 +424,7 @@ set dhcp.sma.interface="sma"
 set dhcp.sma.start="2"
 set dhcp.sma.limit="150"
 set dhcp.sma.leasetime="12h"
+add_list dhcp.sma.dhcp_option='6,10.178.178.1'
 
 add firewall zone
 set firewall.@zone[-1].name="sma"
