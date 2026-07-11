@@ -126,7 +126,11 @@ then
 	uci add network bridge-vlan
 	uci set network.@bridge-vlan[-1].device='b-lan'
 	uci set network.@bridge-vlan[-1].vlan='10'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan5:t' || uci add_list network.@bridge-vlan[-1].ports='lan4:t' 
+	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
+	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
+	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
+	uci add_list network.@bridge-vlan[-1].ports='lan4:t'
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan5:t' || echo > /dev/null 
 	uci set network.mgmt='interface'
 	uci set network.mgmt.proto='static'
 	uci set network.mgmt.defaultroute='0'
