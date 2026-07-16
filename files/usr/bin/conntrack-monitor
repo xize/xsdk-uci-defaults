@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do clear;env="/proc/sys/net/netfilter/nf_conntrack_";current=$(cat $env"count");max=$(cat $env"max");echo "CLI Conntrack monitor by © Xize";echo;echo "$current current conntrack."; echo "$max maximum conntrack.";echo;echo "conntrack left: $((max-current))";echo;echo;echo "press ctrl+c to exit.";sleep 3;done
+
+exit 0
+
