@@ -23,7 +23,7 @@ then
 
 		for tagged_vlan in $vlanlist; do
 			uci add network bridge-vlan
-			uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+			uci set network.@bridge-vlan[-1].vlan="$tagged_vlan"
 			for dsa_port in $port_map; do
 				uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
 			done
@@ -44,7 +44,7 @@ then
 
                 for tagged_vlan in $vlanlist; do
                         uci add network bridge-vlan
-                        uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+                        uci set network.@bridge-vlan[-1].vlan="$tagged_vlan"
                         for dsa_port in $port_map; do
                                 uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
                         done
@@ -63,7 +63,7 @@ then
 
                 for tagged_vlan in $vlanlist; do
                         uci add network bridge-vlan
-                        uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+                        uci set network.@bridge-vlan[-1].vlan="$tagged_vlan"
                         for dsa_port in $port_map; do
                                 uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
                         done
