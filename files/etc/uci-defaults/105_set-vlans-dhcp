@@ -33,7 +33,7 @@ then
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='10'
 		uci set network.@bridge-vlan[-1].device='br-lan'
-		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan5:u*'
 
 	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
@@ -57,7 +57,7 @@ then
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='10'
 		uci set network.@bridge-vlan[-1].device="br-lan"
-		uci add_list network.@bridge-vlan[-1].ports='lan8:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan8:u*'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
 
@@ -79,7 +79,7 @@ then
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
 		uci set network.@bridge-vlan[-1].vlan='10'
-		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
 
 	fi
 
