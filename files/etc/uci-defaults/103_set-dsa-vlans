@@ -22,7 +22,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
 		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -52,7 +52,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -82,7 +82,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 	
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -111,7 +111,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -140,7 +140,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -169,7 +169,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -198,7 +198,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -227,7 +227,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -256,7 +256,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -285,7 +285,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -314,7 +314,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -343,7 +343,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -372,7 +372,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -401,7 +401,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -430,7 +430,7 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
@@ -459,7 +459,7 @@ then
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan3:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan2:t'
