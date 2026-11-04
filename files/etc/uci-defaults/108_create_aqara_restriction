@@ -39,7 +39,7 @@ add firewall ipset
 set firewall.@ipset[-1].name='aqara'
 set firewall.@ipset[-1].family='ipv4'
 set firewall.@ipset[-1].match='dest_ip'
-set firewall.@ipset[-1].counters='1'
+set firewall.@ipset[-1].timeout="60"
 
 add firewall rule
 set firewall.@rule[-1].name='aqara-set-mark-on-ipset'
