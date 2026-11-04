@@ -1,13 +1,13 @@
 #!/bin/sh
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
-	uci set network.lan='interface'
-	uci set network.lan.device='br-lan.169'
-	uci set network.lan.proto='static'
-	uci set network.lan.ipaddr='10.234.53.3/24'
-	uci set network.lan.netmask='255.255.255.0'
-	uci set network.lan.broadcast='10.234.53.255'
-	uci set network.lan.dns='10.234.53.1'
+	uci set network.wan='interface'
+	uci set network.wan.device='br-lan.169'
+	uci set network.wan.proto='static'
+	uci set network.wan.ipaddr='10.234.53.3/24'
+	uci set network.wan.netmask='255.255.255.0'
+	uci set network.wan.broadcast='10.234.53.255'
+	uci set network.wan.dns='10.234.53.1'
 
 	uci set network.wlan0=interface
 	uci set network.wlan0.proto='dhcp'
@@ -74,15 +74,15 @@ then
 
         uci add_list firewall.@zone[0].network='sma'
 
-        uci set network.mgmt='interface'
-        uci set network.mgmt.proto='static'
-        uci set network.mgmt.defaultroute='0'
-        uci set network.mgmt.delegate='0'
-        uci set network.mgmt.device='br-lan.10'
-        uci set network.mgmt.netmask='255.255.255.0'
-        uci set network.mgmt.ipaddr='192.168.76.1'
+        uci set network.lan='interface'
+        uci set network.lan.proto='static'
+        uci set network.lan.defaultroute='0'
+        uci set network.lan.delegate='0'
+        uci set network.lan.device='br-lan.10'
+        uci set network.lan.netmask='255.255.255.0'
+        uci set network.lan.ipaddr='192.168.76.1'
         uci set dhcp.mgmt=dhcp
-        uci set dhcp.mgmt.interface='mgmt'
+        uci set dhcp.mgmt.interface='lan'
         uci set dhcp.mgmt.start='2'
         uci set dhcp.mgmt.limit='150'
 
