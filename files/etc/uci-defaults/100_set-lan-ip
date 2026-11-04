@@ -6,6 +6,7 @@ readip=$(uci get network.lan.ipaddr)
 if [ "$readip" = "192.168.1.1" -a "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
 	uci set network.lan.ipaddr='10.234.53.1'
+	uci set network.lan.netmask='255.255.255.0'
 	uci commit network
 fi
 
