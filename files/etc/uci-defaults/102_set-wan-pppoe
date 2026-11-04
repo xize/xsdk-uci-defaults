@@ -16,7 +16,7 @@ then
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
         	uci set network.wan.device='wan.6'
-	elif [ "$router_model" = "glinet,be14000" ]
+	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
 		# delete sfp from br-lan
         	uci del_list network.@device[0].ports='sfp'
