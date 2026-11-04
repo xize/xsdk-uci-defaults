@@ -86,6 +86,7 @@ then
         uci set dhcp.mgmt.start='2'
         uci set dhcp.mgmt.limit='150'
 
+	uci commit dhcp
 	uci commit firewall
 	uci commit network
 fi
