@@ -385,6 +385,10 @@ add firewall forwarding
 set firewall.@forwarding[-1].src="proxmox"
 set firewall.@forwarding[-1].dest="wan"
 
+add firewall forwarding
+set firewall.@forwarding[-1].src="proxmox"
+set firewall.@forwarding[-1].dest="proxmox_vpn"
+
 set network.proxmox_vpn=interface
 set network.proxmox_vpn.proto="static"
 set network.proxmox_vpn.device="br-lan.71"
@@ -406,6 +410,10 @@ add_list firewall.@zone[-1].network="proxmox_vpn"
 set firewall.@zone[-1].input="ACCEPT"
 set firewall.@zone[-1].output="ACCEPT"
 set firewall.@zone[-1].forward="REJECT"
+
+add firewall forwarding
+set firewall.@forwarding[-1].src="proxmox_vpn"
+set firewall.@forwarding[-1].dest="proxmox"
 
 add firewall forwarding
 set firewall.@forwarding[-1].src="proxmox_vpn"
