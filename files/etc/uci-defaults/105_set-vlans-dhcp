@@ -30,6 +30,14 @@ then
 			done
 		done
 
+		lan_port_map="lan1 lan2 lan3 lan4"
+		for lan_port in $lan_port_map; do
+			uci add network bridge-vlan
+			uci set network.@bridge-vlan[-1].device='br-lan'
+			uci set network.@bridge-vlan[-1].vlan='10'
+			uci add_list network.@bridge-vlan[-1].ports="${lan_port}:t"
+		done
+
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='10'
 		uci set network.@bridge-vlan[-1].device='br-lan'
@@ -54,6 +62,14 @@ then
                         done
                 done
 
+                lan_port_map="wan lan1 lan2 lan3 lan4 lan5 lan6 lan7"
+                for lan_port in $lan_port_map; do
+                        uci add network bridge-vlan
+                        uci set network.@bridge-vlan[-1].device='br-lan'
+                        uci set network.@bridge-vlan[-1].vlan='10'
+                        uci add_list network.@bridge-vlan[-1].ports="${lan_port}:t"
+                done
+
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='10'
 		uci set network.@bridge-vlan[-1].device="br-lan"
@@ -76,6 +92,13 @@ then
                         done
                 done
 
+		lan_port_map="lan1 lan2 lan3"
+                for lan_port in $lan_port_map; do
+                        uci add network bridge-vlan
+                        uci set network.@bridge-vlan[-1].device='br-lan'
+                        uci set network.@bridge-vlan[-1].vlan='10'
+                        uci add_list network.@bridge-vlan[-1].ports="${lan_port}:t"
+                done
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
 		uci set network.@bridge-vlan[-1].vlan='10'
