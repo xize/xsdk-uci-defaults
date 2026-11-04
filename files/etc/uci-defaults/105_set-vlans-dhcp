@@ -4,149 +4,78 @@ router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 
 if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
-	
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@device[0].ports='eth1' || uci add_list network.@device[0].ports='eth0'
 
+	# add wan ports to various supported models, if no model is found we skip the placement.
+	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@device[0].ports='eth1'
+	[[ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]] && uci add_list network.@device[0].ports='wan'
+	[[ "$router_model" = "glinet,gl-be14000" ]] && uci add_list network.@device[0].ports='wan' && uci add_list network.@device[0].ports='sfp'
 	uci set network.device[0].bridge_empty='1'
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='1'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:u*' || uci add_list network.@bridge-vlan[-1].ports='eth0:u*'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:u*' || echo > /dev/null
+	vlanlist="50 51 52 90 133 178 179 62"
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='50'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+	if [ "$router_model" = "glinet,gl-mt6000" ]
+	then
 
-	uci set dhcp.wlan0=dhcp
-	uci set dhcp.wlan0.interface='wlan0'
-	uci set dhcp.wlan0.ignore='1'
+		port_map="eth1 lan1 lan2 lan3 lan4 lan5"
+		uci add network bridge-vlan
+		uci set network.@bridge-vlan[-1].vlan='169'
+		uci add_list network.@bridge-vlan[-1].ports='eth1:t'
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='51'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+		for tagged_vlan in $vlanlist; do
+			uci add network bridge-vlan
+			uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+			for dsa_port in $port_map; do
+				uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
+			done
+		done
 
-	uci set dhcp.wlan1=dhcp
-	uci set dhcp.wlan1.interface='wlan1'
-	uci set dhcp.wlan1.ignore='1'
+		uci add network bridge-vlan
+		uci set network.@bridge-vlan[-1].vlan='10'
+		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='52'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+	elif [ "$router_model" = "glinet,gl-be14000" ]
+	then
 
-	uci set dhcp.iot=dhcp
-	uci set dhcp.iot.interface='iot'
-	uci set dhcp.iot.ignore='1'
+		port_map="sfp wan lan2 lan3 lan4 lan5 lan6 lan7 lan8"
+                uci add network bridge-vlan
+                uci set network.@bridge-vlan[-1].vlan='169'
+                uci add_list network.@bridge-vlan[-1].ports='sfp:t'
+		uci add_list network.@bridge-vlan[-1].ports='wan:t'
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='62'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+                for tagged_vlan in $vlanlist; do
+                        uci add network bridge-vlan
+                        uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+                        for dsa_port in $port_map; do
+                                uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
+                        done
+                done
 
-	uci set dhcp.betatest=dhcp
-	uci set dhcp.betatest.interface='betatest'
-	uci set dhcp.betatest.ignore='1'
+		uci add network bridge-vlan
+		uci set network.@bridge-vlan[-1].vlan='10'
+		uci add_list network.@bridge-vlan[-1].ports='lan8:t'
+	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
+	then
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='90'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+	 	port_map="wan lan1 lan2 lan3 lan4"
+                uci add network bridge-vlan
+                uci set network.@bridge-vlan[-1].vlan='169'
+                uci add_list network.@bridge-vlan[-1].ports='wan:t'
 
-	uci set dhcp.ayaneo=dhcp
-	uci set dhcp.ayaneo.interface='ayaneo'
-	uci set dhcp.ayaneo.ignore='1'
+                for tagged_vlan in $vlanlist; do
+                        uci add network bridge-vlan
+                        uci set network.@bridge-vlan[-1].vlan='$tagged_vlan'
+                        for dsa_port in $port_map; do
+                                uci add_list network.@bridge-vlan[-1].ports="$dsa_port:$tagged_vlan"
+                        done
+                done
 
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='178'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
+		uci add network bridge-vlan
+		uci set network.@bridge-vlan[-1].vlan='10'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 
-	uci set dhcp.aqara=dhcp
-	uci set dhcp.aqara.interface='aqara'
-	uci set dhcp.aqara.ignore='1'
-
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='br-lan'
-	uci set network.@bridge-vlan[-1].vlan='179'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
-
-	uci set dhcp.hwnet=dhcp
-	uci set dhcp.hwnet.interface='hwnet'
-	uci set dhcp.hwnet.ignore='1'
-
-        uci add network bridge-vlan
-        uci set network.@bridge-vlan[-1].device='br-lan'
-        uci set network.@bridge-vlan[-1].vlan='133'
-        [[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='eth1:t' || uci add_list network.@bridge-vlan[-1].ports='eth0:t'
-        uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-        uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-        uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-        [[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan4:t' || echo > /dev/null
-
-        uci set dhcp.sma=dhcp
-        uci set dhcp.sma.interface='sma'
-        uci set dhcp.sma.ignore='1'
-
-
-	uci add network bridge-vlan
-	uci set network.@bridge-vlan[-1].device='b-lan'
-	uci set network.@bridge-vlan[-1].vlan='10'
-	uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-	uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@bridge-vlan[-1].ports='lan5:t' || echo > /dev/null 
-	uci set network.mgmt='interface'
-	uci set network.mgmt.proto='static'
-	uci set network.mgmt.defaultroute='0'
-	uci set network.mgmt.delegate='0'
-	uci set network.mgmt.device='br-lan.10'
-	uci set network.mgmt.netmask='255.255.255.0'
-	uci set network.mgmt.ipaddr='192.168.76.1'
-	uci set dhcp.mgmt=dhcp
-	uci set dhcp.mgmt.interface='mgmt'
-	uci set dhcp.mgmt.start='2'
-	uci set dhcp.mgmt.limit='150'
+	fi
 
 	uci commit network
-	uci commit dhcp
-	
 fi
-
 exit 0
 
