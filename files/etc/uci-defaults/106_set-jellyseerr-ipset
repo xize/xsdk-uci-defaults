@@ -13,47 +13,51 @@ uci batch << EOI
     set firewall.@ipset[-1].name="tmdb"
     set firewall.@ipset[-1].family="ipv4"
     set firewall.@ipset[-1].match="dest_ip"
-    set firewall.@ipset[-1].counters="1"
+    set firewall.@ipset[-1].timeout='60'
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-unrestricted-wgclient"
     set firewall.@rule[-1].src="wgserver"
-    add_list firewall.@rule[-1].src_ip="10.6.7.2"
-    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    add_list firewall.@rule[-1].src_ip="!10.6.7.3"
     set firewall.@rule[-1].dest="wgclient"
     set firewall.@rule[-1].target="ACCEPT"
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-unrestricted-proxmox"
     set firewall.@rule[-1].src="wgserver"
-    add_list firewall.@rule[-1].src_ip="10.6.7.2"
-    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    add_list firewall.@rule[-1].src_ip="!10.6.7.3"
     set firewall.@rule[-1].dest="proxmox"
     set firewall.@rule[-1].target="ACCEPT"
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-unrestricted-proxmox"
     set firewall.@rule[-1].src="wgserver"
-    add_list firewall.@rule[-1].src_ip="10.6.7.2"
-    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    add_list firewall.@rule[-1].src_ip="!10.6.7.3"
     set firewall.@rule[-1].dest="proxmox_vpn"
     set firewall.@rule[-1].target="ACCEPT"
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-unrestricted-proxmox"
     set firewall.@rule[-1].src="wgserver"
-    add_list firewall.@rule[-1].src_ip="10.6.7.2"
-    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    add_list firewall.@rule[-1].src_ip="!10.6.7.3"
     set firewall.@rule[-1].dest="proxmox_vpn"
     set firewall.@rule[-1].target="ACCEPT"
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-restricted"
     set firewall.@rule[-1].src="wgserver"
-    add_list firewall.@rule[-1].src_ip="10.6.7.4"
+    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    set firewall.@rule[-1].dest="proxmox"
+    add_list firewall.@rule[-1].dest_ip="10.244.244.11"
+    add_list firewall.@rule[-1].target="ACCEPT"  
+
+    add firewall rule
+    set firewall.@rule[-1].name="allow-wgserver-restricted"
+    set firewall.@rule[-1].src="wgserver"
+    add_list firewall.@rule[-1].src_ip="10.6.7.3"
     set firewall.@rule[-1].dest="proxmox_vpn"
     add_list firewall.@rule[-1].dest_ip="10.245.245.51"
-    add_list firewall.@rule[-1].dest_ip="10.245.245.53"
+    add_list firewall.@rule[-1].dest_ip="10.245.245.531"
 
     add firewall rule
     set firewall.@rule[-1].name="allow-wgserver-restricted-tmdb-ipset"
@@ -62,8 +66,22 @@ uci batch << EOI
     set firewall.@rule[-1].dest="wgclient"
     set firewall.@rule[-1].dest_port="443"
     set firewall.@rule[-1].target="ACCEPT"
-    add_list firewall.@rule[-1].src_ip='10.6.7.4'
+    add_list firewall.@rule[-1].src_ip='10.6.7.3'
     set firewall.@rule[-1].family='ipv4'
+
+    add firewall rule
+    set firewall.@rule[-1].name="restrict-wgserver-inet"
+    set firewall.@rule[-1].src="wgserver"
+    set firewall.@rule[-1].dest="wgclient"
+    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    set firewall.@rule[-1].target="DROP"
+
+    add firewall rule
+    set firewall.@rule[-1].name="restrict-wgserver-wan"
+    set firewall.@rule[-1].src="wgserver"
+    add_list firewall.@rule[-1].src_ip="10.6.7.3"
+    set firewall.@rule[-1].dest="wan"
+    set firewall.@rule[-1].target="DROP"
 
 EOI
 
