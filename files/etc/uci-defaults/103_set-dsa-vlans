@@ -3,7 +3,7 @@
 default_lan=$(uci -q get network.lan.device)
 router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 
-if [ "$default_lan" != "br-lan.169" -a "$(uci -q get xsdk.@factory[0].init)" != "1" -a "$router_model" = "glinet,gl-mt6000" -o "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
+if [ "$default_lan" != "br-lan.169" -a "$(uci -q get xsdk.@factory[0].init)" != "1" -a "$router_model" = "glinet,gl-mt6000" -o "$router_model" = "zyxel,ex5601-t0-ubootmod" -o "$router_model" = "glinet,gl-be14000" ]
 then
         uci set network.@device[0].ipv6='1'
 
