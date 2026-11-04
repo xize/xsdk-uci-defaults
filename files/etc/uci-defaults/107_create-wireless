@@ -17,20 +17,6 @@ then
     chmod -R 755 /etc/hostapd
 
 uci batch << EOI
-set wireless.radio0=wifi-device
-set wireless.radio0.type='mac80211'
-set wireless.radio0.path='platform/soc/18000000.wifi'
-set wireless.radio0.channel='12'
-set wireless.radio0.band='2g'
-set wireless.radio0.htmode='HE20'
-set wireless.radio0.cell_density='0'
-set wireless.radio0.txpower='20'
-set wireless.radio0.country='NL'
-add_list wireless.radio0.hostapd_options='ssid_protection=1'
-set wireless.radio0.vendor_vht='1'
-set wireless.radio0.itxbfen='1'
-set wireless.radio0.log_level='3'
-
 set wireless.default_radio0=wifi-iface
 set wireless.default_radio0.device='radio0'
 set wireless.default_radio0.mode='ap'
@@ -52,19 +38,6 @@ set wireless.default_radio0.vlan_tagged_interface='eth1'
 set wireless.default_radio0.vlan_naming='1'
 set wireless.default_radio0.wpa_psk_file='/etc/hostapd/ppsk-vlans'
 set wireless.default_radio0.disabled='1'
-
-set wireless.radio1=wifi-device
-set wireless.radio1.type='mac80211'
-set wireless.radio1.path='platform/soc/18000000.wifi+1'
-set wireless.radio1.channel='108'
-set wireless.radio1.band='5g'
-set wireless.radio1.htmode='HE160'
-set wireless.radio1.cell_density='0'
-set wireless.radio1.country='NL'
-set wireless.radio1.txpower='17'
-add_list wireless.radio1.hostapd_options='ssid_protection=1'
-set wireless.radio1.itxbfen='1'
-set wireless.radio1.log_level='3'
 
 set wireless.default_radio1=wifi-iface
 set wireless.default_radio1.device='radio1'
