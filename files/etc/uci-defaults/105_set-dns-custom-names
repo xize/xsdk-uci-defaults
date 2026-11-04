@@ -18,11 +18,23 @@ then
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="pve.lan"
-	set dhcp.@domain[-1].ip="10.244.244.2"
+	set dhcp.@domain[-1].ip="10.234.53.10"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="dockeros.lan"
-	set dhcp.@domain[-1].ip="10.245.245.10"
+	set dhcp.@domain[-1].ip="10.244.244.2"
+
+	add dhcp domain
+	set dhcp.@domain[-1].name="portainer.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
+
+	add dhcp domain
+	set dhcp.@domain[-1].name="arcane.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
+
+	add dhcp domain
+	set dhcp.@domain[-1].name="nginx.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="aria.lan"
@@ -30,23 +42,23 @@ then
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="jellyfin.lan"
-	set dhcp.@domain[-1].ip="10.245.245.51"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="radarr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.52"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
-	set dhcp.@domain[-1].name="jellyseerr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.53"
+	set dhcp.@domain[-1].name="seerr.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="prowlarr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.54"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="bazarr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.55"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="flareresolverr.lan"
@@ -54,11 +66,11 @@ then
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="sabnzb.lan"
-	set dhcp.@domain[-1].ip="10.245.245.57"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="sonarr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.58"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="spotarr.lan"
@@ -66,28 +78,32 @@ then
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="tdarr.lan"
-	set dhcp.@domain[-1].ip="10.245.245.60"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="qtorrent.lan"
-	set dhcp.@domain[-1].ip="10.245.245.61"
-
-	add dhcp domain
-	set dhcp.@domain[-1].name="torrentbox.lan"
-	set dhcp.@domain[-1].ip="10.244.244.10"
+	set dhcp.@domain[-1].ip="10.244.244.11"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="openwrtbuilder.lan"
 	set dhcp.@domain[-1].ip="10.244.244.3"
 
 	add dhcp domain
+	set dhcp.@domain[-1].name="repo.jenkins.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
+
+	add dhcp domain
+	set dhcp.@domain[-1].name="jenkins.lan"
+	set dhcp.@domain[-1].ip="10.244.244.11"
+
+	add dhcp domain
 	set dhcp.@domain[-1].name="unifi.lan"
-	set dhcp.@domain[-1].ip="10.234.53.122"
+	set dhcp.@domain[-1].ip="10.234.53.10"
 
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="switch1.lan"
-	set dhcp.@domain[-1].ip="10.234.53.10"
+	set dhcp.@domain[-1].ip="10.234.53.19"
 
 	add dhcp domain
 	set dhcp.@domain[-1].name="switch2.lan"
