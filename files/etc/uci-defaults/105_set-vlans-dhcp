@@ -20,6 +20,7 @@ then
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='169'
 		uci add_list network.@bridge-vlan[-1].ports='eth1:t'
+		uci add_list network.@bridge-vlan[-1].device='br-lan'
 
 		for tagged_vlan in $vlanlist; do
 			uci add network bridge-vlan
