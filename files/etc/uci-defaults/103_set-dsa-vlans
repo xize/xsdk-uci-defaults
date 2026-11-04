@@ -5,7 +5,6 @@ router_model=$(ubus call system board | jsonfilter -e "@['board_name']")
 
 if [ "$default_lan" != "br-lan.169" -a "$(uci -q get xsdk.@factory[0].init)" != "1" -a "$router_model" = "glinet,gl-mt6000" -o "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 then
-	uci add_list network.@device[0].ports='vx0'
         uci set network.@device[0].ipv6='1'
 
     	uci add network bridge-vlan
@@ -106,14 +105,12 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
 		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "glinet,be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
@@ -137,14 +134,12 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
 		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "glinet,be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
@@ -226,14 +221,12 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
 		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "glinet,be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
@@ -244,7 +237,7 @@ then
                 uci add_list network.@bridge-vlan[-1].ports='lan6:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan7:t'
                 uci add_list network.@bridge-vlan[-1].ports='lan8:t'
-                uci add_list network.@bridge-vlan[-1].ports='wan:t'
+             	uci add_list network.@bridge-vlan[-1].ports='wan:t'
 	fi
 	uci set network.@bridge-vlan[-1].vlan='89'
 
@@ -286,14 +279,12 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
 		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-		uci add_list network.@bridge-vlan[-1].ports='vx0:t'
 	elif [ "$router_model" = "glinet,be14000" ]
 	then
                 uci add_list network.@bridge-vlan[-1].ports='lan1:t'
