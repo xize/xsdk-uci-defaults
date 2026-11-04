@@ -9,7 +9,7 @@ then
 	[[ "$router_model" = "glinet,gl-mt6000" ]] && uci add_list network.@device[0].ports='eth1'
 	[[ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]] && uci add_list network.@device[0].ports='wan'
 	[[ "$router_model" = "glinet,gl-be14000" ]] && uci add_list network.@device[0].ports='wan' && uci add_list network.@device[0].ports='sfp'
-	uci set network.device[0].bridge_empty='1'
+	uci set network.@device[0].bridge_empty='1'
 
 	vlanlist="50 51 52 90 133 178 179 62"
 
