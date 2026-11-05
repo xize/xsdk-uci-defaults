@@ -31,8 +31,8 @@ then
 		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan6:t'
 		uci add_list network.@bridge-vlan[-1].ports='lan7:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan8:t'
-		uci add_list network.@bridge-vlan[-1].ports='wan:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan8:u*'
+		uci add_list network.@bridge-vlan[-1].ports='wan:t'
 	fi
 	uci set network.@bridge-vlan[-1].vlan='169'
 	uci set network.lan.device='br-lan.169'
