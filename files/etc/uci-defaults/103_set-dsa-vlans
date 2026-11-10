@@ -11,28 +11,28 @@ then
 	uci set network.@bridge-vlan[-1].device='br-lan'
 	if [ "$router_model" = "glinet,gl-mt6000" ]
 	then
-		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
 		uci add_list network.@bridge-vlan[-1].ports='lan5:u*'
 	elif [ "$router_model" = "zyxel,ex5601-t0-ubootmod" ]
 	then
-		uci add_list network.@bridge-vlan[-1].ports='lan1:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
 		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
 	elif [ "$router_model" = "glinet,gl-be14000" ]
 	then
-		uci add_list network.@bridge-vlan[-1].ports='lan2:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan3:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan4:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan5:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan6:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan7:t'
-		uci add_list network.@bridge-vlan[-1].ports='lan8:t'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan5:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan6:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan7:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan8:u*'
 		uci add_list network.@bridge-vlan[-1].ports='lan9:u*'
-		uci add_list network.@bridge-vlan[-1].ports='wan:t'
+		uci add_list network.@bridge-vlan[-1].ports='wan:u*'
 	fi
 	uci set network.@bridge-vlan[-1].vlan='169'
 	uci set network.lan.device='br-lan.169'
