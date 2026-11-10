@@ -19,8 +19,15 @@ then
 		port_map="eth1 lan1 lan2 lan3 lan4 lan5"
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].vlan='169'
-		uci add_list network.@bridge-vlan[-1].ports='eth1:t'
 		uci add_list network.@bridge-vlan[-1].device='br-lan'
+
+		# add unsecure default native vlans just like every factory defined device would.
+		uci add_list network.@bridge-vlan[-1].ports='eth1:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan5:u*'
 
 		for tagged_vlan in $vlanlist; do
 			uci add network bridge-vlan
@@ -31,6 +38,7 @@ then
 			done
 		done
 
+		# add maintenance port for recovery purposes on the dumbap (last port).
 		lan_port_map="lan1 lan2 lan3 lan4"
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
@@ -47,8 +55,18 @@ then
                 uci add network bridge-vlan
                 uci set network.@bridge-vlan[-1].vlan='169'
 		uci set network.@bridge-vlan[-1].device='br-lan'
-                uci add_list network.@bridge-vlan[-1].ports='sfp:t'
-		uci add_list network.@bridge-vlan[-1].ports='wan:t'
+
+		# add unsecure default native vlans just like every factory defined device would.
+                uci add_list network.@bridge-vlan[-1].ports='sfp:u*'
+		uci add_list network.@bridge-vlan[-1].ports='wan:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan5:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan6:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan7:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan8:u*'
+		uci add_List network.@bridge-vlan[-1].ports='lan9:u*'
 
                 for tagged_vlan in $vlanlist; do
                         uci add network bridge-vlan
@@ -59,6 +77,7 @@ then
                         done
                 done
 
+		# add maintenance port for recovery purposes on the dumbap (last port).
                 lan_port_map="wan lan2 lan3 lan4 lan5 lan6 lan7 lan8 lan9"
                 uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
@@ -75,7 +94,13 @@ then
                 uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
                 uci set network.@bridge-vlan[-1].vlan='169'
-                uci add_list network.@bridge-vlan[-1].ports='wan:t'
+
+		# add unsecure default native vlans just like every factory defined device would.
+		uci add_list network.@bridge-vlan[-1].ports='wan:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan1:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan2:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan3:u*'
+		uci add_list network.@bridge-vlan[-1].ports='lan4:u*'
 
                 for tagged_vlan in $vlanlist; do
                         uci add network bridge-vlan
@@ -86,6 +111,7 @@ then
                         done
                 done
 
+		# add maintenance port for recovery purposes on the dumbap (last port).
 		lan_port_map="lan1 lan2 lan3"
 		uci add network bridge-vlan
 		uci set network.@bridge-vlan[-1].device='br-lan'
