@@ -2,10 +2,10 @@
 
 readip=$(uci get network.lan.ipaddr)
 
-if [ "$readip" = "192.168.1.1" -a "$(uci -q get xsdk.@factory[0].init)" != "1" ]
+if [ "$(uci -q get xsdk.@factory[0].init)" != "1" ]
 then
-	uci set network.lan.ipaddr='10.234.53.1'
-	uci set network.lan.netmask='255.255.255.0'
+	# on older OpenWrt < 26 /24 is not used here... and netmask is enforced. 
+	uci add_list network.lan.ipaddr='10.234.53.1/24'
 	uci commit network
 fi
 
